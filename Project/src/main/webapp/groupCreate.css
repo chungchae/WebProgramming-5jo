@@ -1,0 +1,211 @@
+.background-image-area {
+    background-color: #e0e0e0;
+    width: 100%;
+    height: 255px;
+}
+.background {
+    margin-left: auto;
+    margin-right: auto;
+    width: 600px;
+    height: 700px;
+    font-size: 18px;
+    color: black;
+}
+
+.intro {
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+.intro-text {
+    font-weight: 800;
+    font-size: 24px;
+    margin: 0 auto;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+}
+.check-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+}
+
+.input-field {
+    display: inline-block;
+    margin-top: 10px;
+    text-align: center;
+    width: 600px;
+}
+.input-kind {
+    text-align: left;
+    margin-top: 5px;
+    margin-left: 30px;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+.box1 {
+    position: static;
+    border-radius: 8px;
+    display: flex;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    width: 550px;
+    height: 50px;
+}
+.box2 {
+    display: inline-block;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 110px;
+    height: 50px;
+}
+.box3 {
+    display: inline-block;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 155px;
+    height: 50px;
+}
+.box4 {
+    position: static;
+    border-radius: 8px;
+    display: flex;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    width: 550px;
+    height: 125px;
+}
+.box-button {
+    position: static;
+    border-radius: 25px;
+    display: flex;
+    margin-top: 45px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #33b4ff;
+    box-sizing: border-box;
+    width: 300px;
+    height: 50px;
+}
+.inputbox {
+    position: static;
+    margin-top: 6px;
+    margin-left: 20px;
+    display: flex;
+    font-weight: 500;
+    font-size: 20px;
+    border: none;
+    width: 500px;
+    height: 35px;
+}
+.textbox {
+    position: static;
+    margin-top: 9px;
+    margin-left: 20px;
+    display: flex;
+    font-weight: 500;
+    font-size: 20px;
+    border: none;
+    width: 500px;
+    height: 100px;
+    font-family: inter;
+}
+.selectbox {
+    margin-top: 8px;
+    margin-left: 10px;
+    display: flex;
+    font-weight: 500;
+    font-size: 18px;
+    border: none;
+    width: 90px;
+    height: 35px;
+}
+.wrapper {
+    margin: 0 auto;
+    text-align: left;
+    width: 550px;
+    height: 50px;
+}
+.timebox {
+    margin-top: 7px;
+    margin-left: 5px;
+    display: inline-block;
+    font-weight: 500;
+    font-size: 18px;
+    border: none;
+    width: 130px;
+    height: 35px;
+    font-family: Inter;
+}
+.submitbox {
+    position: static;
+    margin-top: 6px;
+    margin-left: 20px;
+    display: flex;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    background-color: inherit;
+    border: none;
+    width: 250px;
+    height: 35px;
+}
+.inputbox:focus {
+    outline: none;
+}
+.textbox:focus {
+    outline: none;
+}
+.selectbox:focus {
+    outline: none;
+}
+.timebox:focus {
+    outline: none;
+}
+.plus-button {
+    display: inline-block;
+    background-image: url('media/icon-plus2.png');
+    border: none;
+    background-color: transparent;
+    margin-right: 65px;
+    width: 30px;
+    height: 35px;
+}
+
+.add-background {
+    position: absolute;
+    top: 110px;
+    left: 75%;
+    color: #777;
+}
+
+
+.div {
+    position: relative;
+    background-color: #f5f7fa;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 150px;
+    font-size: 16px;
+    color: #fff;
+    font-family: Inter;
+}
+.hidden {
+    display: none;
+}
