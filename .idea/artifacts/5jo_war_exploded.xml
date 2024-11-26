@@ -7,6 +7,10 @@
         <element id="directory" name="classes">
           <element id="module-output" name="5jo" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="googlecode.json.simple" />
+          <element id="library" level="project" name="javax.servlet.api" />
+        </element>
       </element>
     </root>
   </artifact>
