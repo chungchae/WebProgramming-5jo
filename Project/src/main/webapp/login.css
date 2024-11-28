@@ -1,0 +1,148 @@
+.background {
+    position: relative;
+    top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px;
+    background-color: #fff;
+    width: 600px;
+    height: 650px;
+    margin-bottom: 100px;
+}
+.title {
+    position: relative;
+    top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    height: 90px;
+    text-align: center;
+    font-size: 40px;
+    color: #4caf4f;
+}
+.title-text {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    line-height: 24px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 90px;
+}
+
+.input-box-email {
+    position: relative;
+    top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 63px;
+}
+.input-box-password {
+    position: relative;
+    top: 165px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 63px;
+}
+.box {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+    box-sizing: border-box;
+    width: 400px;
+    height: 63px;
+}
+.inputbox {
+    position: absolute;
+    display: inline-block;
+    top: 12px;
+    left: 16px;
+    font-weight: 500;
+    font-size: 15pt;
+    border: none;
+    width: 350px;
+    height: 35px;
+}
+.inputbox:focus {
+    outline: none;
+}
+.remember-account {
+    position: relative;
+    top: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 35px;
+}
+.remember-account-text {
+    position: absolute;
+    display: inline-block;
+    top: 0px;
+    left: 40px;
+    font-weight: 500;
+    font-size: 13pt;
+    text-align: left;
+    width: 300px;
+    height: 35px;
+}
+.checkbox {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 1px solid #787878;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+}
+.input-box-submit {
+    position: relative;
+    top: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    height: 63px;
+    color: #fff;
+}
+
+.button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border-radius: 8px;
+    background-color: #89cc8b;
+    width: 400px;
+    height: 63px;
+}
+.submit {
+    position: absolute;
+    top: 16px;
+    left: 0px;
+    font-weight: 800;
+    font-size: 15pt;
+    display: inline-block;
+    background-color: #89cc8b;
+    color: white;
+    border: none;
+    width: 400px;
+    height: 35px;
+}
+
+.div {
+    position: absolute;
+    background-color: #f5f7fa;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 150px;
+    font-size: 24px;
+    color: #b1b1b1;
+    font-family: Inter;
+}
+
