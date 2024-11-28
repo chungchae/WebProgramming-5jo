@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>모임 검색</h1>
-<form method="GET" action="/groupSearch">
+<form method="GET" action="<%= request.getContextPath() %>/groupSearch">
     <label>모임 타입:</label>
     <input type="text" name="groupType" required><br>
     <label>모임 이름:</label>

@@ -23,7 +23,7 @@ public class GroupSearchServlet extends HttpServlet {
 
         // 결과를 JSP로 전달
         request.setAttribute("groups", groups);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/groupResult.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/groupResult.jsp");
         dispatcher.forward(request, response);
     }
 }
