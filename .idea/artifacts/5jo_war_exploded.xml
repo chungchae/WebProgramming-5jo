@@ -10,6 +10,7 @@
         <element id="directory" name="lib">
           <element id="library" level="project" name="googlecode.json.simple" />
           <element id="library" level="project" name="javax.servlet.api" />
+          <element id="library" level="project" name="mysql.connector.j" />
         </element>
       </element>
     </root>

@@ -1,8 +1,8 @@
-package org.example;
+package controller;
 
-import jakarta.servlet.ServletException;
+import db.DBConnection;
 
-
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,18 +13,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-@WebServlet("/api/user/login")
+@WebServlet("/user/login")
 public class UserLoginServlet extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         response.setContentType("text/html; charset=UTF-8");
 
-        try (Connection conn = DBConnect.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             String sql = "SELECT id, email, name, univ, major, introduction FROM User WHERE email = ? AND password = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, email);
@@ -37,7 +37,7 @@ public class UserLoginServlet extends HttpServlet {
                 session.setAttribute("userId", rs.getLong("id")); // 사용자 ID 저장
                 session.setAttribute("email", rs.getString("email"));
 
-                response.sendRedirect("mainpage.jsp");
+                request.getRequestDispatcher("/index.jsp").forward(request,response);
             } else {
                 // 로그인 실패
                 response.getWriter().println("<script>alert('이메일 또는 비밀번호가 잘못되었습니다.'); history.back();</script>");

@@ -1,9 +1,12 @@
-package org.example;
+package controller;
 
 
+import db.DBConnection;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,15 +17,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+@WebServlet("/user/mypage")
 public class UserMyPageServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
@@ -37,7 +37,7 @@ public class UserMyPageServlet extends HttpServlet {
             return;
         }
 
-        try (Connection conn = DBConnect.getConnection()) {
+        try (Connection conn = DBConnection.getConnection()) {
             JSONObject responseData = new JSONObject();
 
             // 사용자 정보 조회
@@ -57,7 +57,7 @@ public class UserMyPageServlet extends HttpServlet {
 
             // 사용자가 가입한 모임 정보 조회
             String groupQuery = "SELECT g.id, g.title, g.image_url FROM GroupUser gu " +
-                    "JOIN Group g ON gu.group_id = g.id WHERE gu.user_id = ?";
+                    "JOIN group_table g ON gu.group_table_id = g.id WHERE gu.user_id = ?";
             JSONArray groupsArray = new JSONArray();
             try (PreparedStatement groupStmt = conn.prepareStatement(groupQuery)) {
                 groupStmt.setLong(1, userId);
@@ -74,10 +74,15 @@ public class UserMyPageServlet extends HttpServlet {
             responseData.put("groups", groupsArray);
 
             // 사용자가 방장인 그룹에 대한 가입 신청 알림 조회
-            String alertQuery = "SELECT gu.user_id, u.name, g.title FROM GroupUser gu " +
-                    "JOIN Group g ON gu.group_id = g.id " +
+            String alertQuery = "SELECT gu.user_id, u.name, g.title " +
+                    "FROM GroupUser gu " +
+                    "JOIN group_table g ON gu.group_id = g.id " +
                     "JOIN User u ON gu.user_id = u.id " +
-                    "WHERE g.id IN (SELECT group_id FROM GroupUser WHERE user_id = ? AND statement = '방장') " +
+                    "WHERE g.id IN ( " +
+                    "    SELECT gu_inner.group_id " +
+                    "    FROM GroupUser gu_inner " +
+                    "    WHERE gu_inner.user_id = ? AND gu_inner.statement = '방장' " +
+                    ") " +
                     "AND gu.statement = '가입대기'";
             JSONArray alertsArray = new JSONArray();
             try (PreparedStatement alertStmt = conn.prepareStatement(alertQuery)) {
