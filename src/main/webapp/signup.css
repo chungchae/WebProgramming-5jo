@@ -38,6 +38,7 @@
 }
 .box {
     position: static;
+    vertical-align: middle;
     border-radius: 8px;
     display: flex;
     margin: 0 auto;
@@ -69,6 +70,18 @@
     width: 350px;
     height: 35px;
 }
+
+.mailbox {
+    position: static;
+    margin-top: 4px;
+    margin-left: 20px;
+    display: flex;
+    font-weight: 500;
+    font-size: 13pt;
+    border: none;
+    width: 150px;
+    height: 35px;
+}
 .textbox {
     position: static;
     margin-left: 20px;
@@ -81,7 +94,7 @@
     height: 125px;
     font-family: Inter;
 }
-.inputbox:focus, .textbox:focus {
+.inputbox:focus, .textbox:focus, .mailbox:focus {
     outline: none;
 }
 
