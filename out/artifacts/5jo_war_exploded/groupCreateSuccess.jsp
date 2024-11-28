@@ -7,6 +7,6 @@
 <body>
 <h1>모임 생성 성공</h1>
 <p>모임이 성공적으로 생성되었습니다!</p>
-<a href="/groupSearch">모임 둘러보기</a>
+<a href="<%= request.getContextPath() %>/groupList">모임 둘러보기</a>
 </body>
 </html>
