@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="model.Group" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,16 +14,30 @@
 </head>
 <body>
 <%
-	String groupName = "언어 교화 모임";
-	int nowMember = 3;
-	int maxMember = 15;
+    Group group = (Group) request.getAttribute("group");
+    
+	// 이하 필드 초기화값을 null로 지정
+	String title = "언어 교환 모임";
+    String[] categories = {"토론", "공부", "언어"};
+    String description = "각자 원하는 언어를 배우는 모임입니다! 모임 내에서 멘토를 정해 서로 구사 가능한 언어를 가르쳐주고, 배울 수 있어요. 언어 관련 시험 대비 목적도 좋습니다. 함께 공부해요!";
+    String imgUrl = "media/Background-image.png";
+	int maxMembers = 15;
+	int currentMembers = 3;
 	String meetingDay = "화";
 	String start = "10:00";
 	String end = "12:00";
-	String details="각자 원하는 언어를 배우는 모임입니다! 모임 내에서 멘토를 정해 서로 구사 가능한 언어를 가르쳐주고, 배울 수 있어요. 언어 관련 시험 대비 목적도 좋습니다. 함께 공부해요!";
 	
-
+    if (group != null) {
+    	title = group.getTitle();
+    	//categories = group.getCategory();
+    	description = group.getDescription();
+    	imgUrl = group.getImageUrl();
+    	maxMembers = group.getMaxMembers();
+    	currentMembers = group.getCurrentMembers();
+    }
 %>
+
+
   	<div class="div">
     	<div class="header">
 			<div class="container">
@@ -52,30 +67,27 @@
 				</div>
 			</div>
 		</div>
-		<div class="background-image-area"></div>
+		<div class="background-image-area" style="background-image: url('<%=imgUrl %>');"></div>
 		<div class="background-under-area"></div>
 		<div class="background">
 			<div class="intro">
-				<div class="intro-text"><%=groupName %></div>
+				<div class="intro-text"><%=title %></div>
 			</div>
 			<div class="member-status">
 				<img class="icon-people" alt="" src="media/icon-people.png">
-				<div class="member-status-text"><%=nowMember %>/<%=maxMember %></div>
+				<div class="member-status-text"><%=currentMembers %>/<%=maxMembers %></div>
 		  	</div>
 			<div class="section-tag">
+			<%
+				for (String category: categories) {
+			%>
 				<div class="tag">
-					<div class="tag-box" style="background-color:#e9e587">
-					  	<div class="tag-text">토론</div></div>
+					<div class="tag-box" style="background-color: <%=getCategoryColor(category)%>;">
+						<div class="tag-text"><%=category %></div>
+					</div>
 				</div>
-				<div class="tag">
-					<div class="tag-box" style="background-color:#87b6e9">
-						<div class="tag-text">공부</div></div>
-				</div>
-				<div class="tag">
-					<div class="tag-box" style="background-color:#e98787">
-					  	<div class="tag-text">언어</div></div>
-				</div>
-		  	</div>
+			<% } %>
+			</div>
 		
 			<div class="section-time">
 				<div class="time-text">모임 시간</div>
@@ -116,17 +128,30 @@
 			<div class="details">
 				<div class="detail-text">모임 설명</div>
 				<div class="meeting-detail">
-					<%=details %>
+					<%=description %>
 				</div>
 
 			</div>
 
 			<div class="box-button">
-				<input type="submit" value="모임 시작하기" class="submitbox">
+				<input type="submit" value="모임 가입하기" class="submitbox">
 			</div>    			
     	</div>
-    	
-    	<div class="add-background">배경 이미지 추가</div>
     </div>
 </body>
 </html>
+<%!
+private String getCategoryColor(String category) {
+	String result;
+	switch(category) {
+		case "토론": result = "#e9e587"; break;
+		case "공부": result = "#87b6e9"; break;
+		case "언어": result = "#e98787"; break;
+		case "자유": result = "#cecece"; break;
+		case "운동": result = "#8be3f4"; break;
+		case "취미": result = "#87e9ba"; break;
+		default: result = "grey"; break;
+	}
+	return result;
+}
+%>

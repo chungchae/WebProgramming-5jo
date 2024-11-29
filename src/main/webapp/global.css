@@ -92,4 +92,25 @@ a {
     text-decoration-line: none;
     color: inherit;
 }
+.color-debate {
+	background-color: #e9e587;
+}
+.color-free {
+	background-color: #cecece;
+}
 
+.color-study {
+	background-color: #87b6e9;
+}
+.color-sports {
+	background-color: #8be3f4;
+}
+.color-lang {
+	background-color: #e98787;
+}
+.color-hobby {
+	background-color: #87e9ba;
+}
+.color-default {
+	background-color: grey;
+}
