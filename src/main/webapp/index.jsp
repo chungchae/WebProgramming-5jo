@@ -97,7 +97,21 @@
 						  <img class="card-image" alt="" src="<%=group.getImageUrl() %>">
 						  
 						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00</div>
+								<div class="time-info-text">
+							<%
+								int daycnt = 0;
+								for (Day day: days) {
+									if (daycnt != 0) {
+							%>
+									,&nbsp;
+							<%
+									}
+							%>
+								<%=day.getDay() %>&nbsp;<%=day.getStartTime() %>~<%=day.getEndTime() %>
+							<% 
+								}
+							%>
+							</div>
 						  </div>
 						  <div class="member-status">
 								<div class="member-status-text"><%= group.getCurrentMembers() %>/<%= group.getMaxMembers() %></div>
