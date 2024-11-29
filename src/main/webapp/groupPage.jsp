@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.Group" %>
+<%@ page import="model.*" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,26 +16,39 @@
 <body>
 <%
     Group group = (Group) request.getAttribute("group");
-    
-	// 이하 필드 초기화값을 null로 지정
-	String title = "언어 교환 모임";
-    String[] categories = {"토론", "공부", "언어"};
-    String description = "각자 원하는 언어를 배우는 모임입니다! 모임 내에서 멘토를 정해 서로 구사 가능한 언어를 가르쳐주고, 배울 수 있어요. 언어 관련 시험 대비 목적도 좋습니다. 함께 공부해요!";
-    String imgUrl = "media/Background-image.png";
-	int maxMembers = 15;
-	int currentMembers = 3;
-	String meetingDay = "화";
-	String start = "10:00";
-	String end = "12:00";
+	List<User> users = new ArrayList<>(); 
+	Object obj = request.getAttribute("users");
+	List<Day> meetingDays = new ArrayList<>();  // 모임 날짜 및 시간 필드 서버에서 받아오도록 수정 필요
 	
+	// 이하 필드 초기화값을 null로 지정
+	String title = null;
+	String category = null;
+    String description = null;
+    String imgUrl = null;
+	int maxMembers = 0;
+	int currentMembers = 0;
+	
+	
+	// get group info
     if (group != null) {
     	title = group.getTitle();
-    	//categories = group.getCategory();
+    	category = group.getCategory();
     	description = group.getDescription();
     	imgUrl = group.getImageUrl();
     	maxMembers = group.getMaxMembers();
     	currentMembers = group.getCurrentMembers();
     }
+    
+	// get category list
+    List<String> categories = getCategories(category);
+    
+	// get member list;
+    if (obj instanceof List) {
+	    List<?> tempList = (List<?>) obj;
+	    if (!tempList.isEmpty() && tempList.get(0) instanceof User) { // 내부 요소 검사
+	        users = (List<User>) obj; // 캐스팅
+	    }
+	}
 %>
 
 
@@ -79,79 +93,115 @@
 		  	</div>
 			<div class="section-tag">
 			<%
-				for (String category: categories) {
+				for (String tag: categories) {
 			%>
 				<div class="tag">
-					<div class="tag-box" style="background-color: <%=getCategoryColor(category)%>;">
-						<div class="tag-text"><%=category %></div>
+					<div class="tag-box" style="background-color: <%=getCategoryColor(tag)%>;">
+						<div class="tag-text"><%=tag %></div>
 					</div>
 				</div>
 			<% } %>
 			</div>
-		
+			
 			<div class="section-time">
-				<div class="time-text">모임 시간</div>
+			<%
+				int daycnt = 0;
+				for (Day day: meetingDays) {
+					if (daycnt == 0) {
+			%>
+					<div class="time-text">모임 시간</div>
+			<%
+					} else {
+			%>
+					<div class="time-text"></div>
+			<% 
+					}
+			%>
 				<div class="meeting">
-					<div class="date"><%=meetingDay %></div>
-					<div class="time"><%=start %>~<%=end %></div>
+					<div class="date"><%=day.getDay() %></div>
+					<div class="time"><%=day.getStartTime() %>~<%=day.getEndTime() %></div>
 				</div>
+			<%	daycnt++;
+				}
+			%>
 			</div>
-
+			
 			<div class="member-info">
 				<div class="member-text">구성원</div>
 				<table class="member">
+				<% 
+					int i = 0;
+					String name = null;
+					String major = null;
+					int grade = 0;
+					for (User user: users) {
+						name = user.getName();
+						major = user.getMajor();
+						grade = user.getGrade();
+				%>
 					<tr>
+				<%
+					if (i==0) {
+				%>
 						<td class="leader-icon"><img src="media/leader.png" alt="" width="25px" height="25px"></td>
-						<td class="user-icon"><img src="media/icon-User.png" alt="" width="30px" height="30px"></td>
-						<td class="user-name">김경영</td>
-						<td class="major">경영학과</td>
-						<td class="grade">3학년</td>
-					</tr>
-					<tr>
+				<%
+					} else {
+				%>
 						<td class="leader-icon"></td>
+				<%
+					}
+				%>
 						<td class="user-icon"><img src="media/icon-User.png" alt="" width="30px" height="30px"></td>
-						<td class="user-name">이컴공</td>
-						<td class="major">컴퓨터공학과</td>
-						<td class="grade">3학년</td>
+						<td class="user-name"><%=name %></td>
+						<td class="major"><%=major %></td>
+						<td class="grade"><%=grade %>학년</td>
 					</tr>
-					<tr>
-						<td class="leader-icon"></td>
-						<td class="user-icon"><img src="media/icon-User.png" alt="" width="30px" height="30px"></td>
-						<td class="user-name">박회계</td>
-						<td class="major">회계학과</td>
-						<td class="grade">2학년</td>
-					</tr>
+				<%
+					i++;
+					}
+				%>
 				</table>
-
 			</div>
-
+			
 			<div class="details">
 				<div class="detail-text">모임 설명</div>
 				<div class="meeting-detail">
 					<%=description %>
 				</div>
-
 			</div>
-
-			<div class="box-button">
+			
+			<form class="box-button">
 				<input type="submit" value="모임 가입하기" class="submitbox">
-			</div>    			
-    	</div>
-    </div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
-<%!
-private String getCategoryColor(String category) {
+<%! private String getCategoryColor(String category) {
 	String result;
-	switch(category) {
-		case "토론": result = "#e9e587"; break;
-		case "공부": result = "#87b6e9"; break;
-		case "언어": result = "#e98787"; break;
-		case "자유": result = "#cecece"; break;
-		case "운동": result = "#8be3f4"; break;
-		case "취미": result = "#87e9ba"; break;
-		default: result = "grey"; break;
+	switch (category) {
+	case "토론": result = "#e9e587"; break;
+	case "공부": result = "#87b6e9"; break;
+	case "언어": result = "#e98787"; break;
+	case "자유": result = "#cecece"; break;
+	case "운동": result = "#8be3f4"; break;
+	case "취미": result = "#87e9ba"; break;
+	default: result = "grey"; break;
 	}
 	return result;
+}
+private List<String> getCategories(String category) {
+	List<String> categories = new ArrayList<>();
+	StringTokenizer tokenizer = new StringTokenizer(category, " ");
+	String tag = null;
+	int cnt = 0;
+	
+	while (tokenizer.hasMoreTokens()) {
+		tag = tokenizer.nextToken();
+		categories.add(tag);
+		cnt++;
+		if (cnt>3) break;
+	}
+	return categories;
 }
 %>
