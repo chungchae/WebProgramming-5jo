@@ -3,8 +3,11 @@ package model;
 public class User {
     private long id;
     private String name;
+    private String email;
+    private String univ;
     private String major;
     private int grade;
+    private String hobby;
     
     // Getters and Setters
     public long getId() {
@@ -38,4 +41,28 @@ public class User {
     public void setGrade(int grade) {
     	this.grade = grade;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUniv() {
+		return univ;
+	}
+
+	public void setUniv(String univ) {
+		this.univ = univ;
+	}
+
+	public String getHobby() {
+		return hobby;
+	}
+
+	public void setHobby(String hobby) {
+		this.hobby = hobby;
+	}
 }
