@@ -135,40 +135,8 @@
 
       			<div class="input-field">
         			<div class="input-kind">태그(최대 3개)</div>
-					<div class="wrapper">
-					<div class="box2">
-						<select name="category1" class="selectbox tags">
-							<option hidden selected>태그 1</option>
-							<option value="exercise">운동</option>
-							<option value="study">공부</option>
-							<option value="free">자유</option>
-							<option value="debate">토론</option>
-							<option value="language">언어</option>
-							<option value="hobby">취미</option>
-						</select>
-					</div>
-					<div class="box2">
-						<select name="category2" class="selectbox tags">
-							<option disabled hidden selected>태그 2</option>
-							<option value="exercise">운동</option>
-							<option value="study">공부</option>
-							<option value="free">자유</option>
-							<option value="debate">토론</option>
-							<option value="language">언어</option>
-							<option value="hobby">취미</option>
-						</select>
-					</div>
-					<div class="box2">
-						<select name="category3" class="selectbox tags">
-							<option disabled hidden selected>태그 3</option>
-							<option value="exercise">운동</option>
-							<option value="study">공부</option>
-							<option value="free">자유</option>
-							<option value="debate">토론</option>
-							<option value="language">언어</option>
-							<option value="hobby">취미</option>
-						</select>
-					</div>
+					<div class="box1">
+						<input type="text" name="category" class="inputbox" placeholder="태그를 입력하세요 (공백으로 구분)" required>
 					</div>
       			</div>
 				
@@ -178,14 +146,19 @@
 						<textarea placeholder="모임을 자유롭게 소개해주세요" name="description" class="textbox" required></textarea>
 					</div>
       			</div>
+      			
+      			<div class="input-field">
+					<div class="input-kind">모임 배경 이미지</div>
+					<div style="margin-top: 10px; margin-left: 30px; text-align: left;">
+						<input type="file" name="imageUrl" accept="image/jpeg,.png"/>
+					</div>
+		  		</div>
 
 				<div class="box-button">
 					<input type="submit" value="모임 시작하기" class="submitbox">
 			 	</div> 
 			</form>    			
     	</div>
-    	
-    	<div class="add-background">배경 이미지 추가</div>
     </div>
 </body>
 </html>
