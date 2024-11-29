@@ -1,19 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.Group" %>
-<%@ page import="java.util.List" %>
+<%@ page import="model.*" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
   	<meta charset="utf-8">
   	<meta name="viewport" content="initial-scale=1, width=device-width">
-	
+	<title>Project</title>
 	<link rel="stylesheet"  href="./global.css" />
   	<link rel="stylesheet"  href="./index.css" />
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" />
   	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend Deca:wght@400&display=swap" />
 </head>
 <body>
+<%
+	List<List> groupList = null;
+	List<Group> recentGroups = null;
+	List<Group> sportsGroups = null;
+	List<Group> studyGroups = null;
+	
+	recentGroups = (List<Group>) request.getAttribute("recentGroups");
+	sportsGroups = (List<Group>) request.getAttribute("sportsGroups");
+	studyGroups = (List<Group>) request.getAttribute("studyGroups");
+	
+	groupList.add(recentGroups);
+	groupList.add(sportsGroups);
+	groupList.add(studyGroups);
+	
+	String groupTypes[] = { "최근", "운동", "공부" };
+	String iconTypes[] = { "clock", "fire", "book" }; 
+	String groupType, iconType;
+	List<Group> groups;
+%>
   	<div class="div">
 		<div class="header">
 			<div class="container">
@@ -50,391 +69,94 @@
       			<input type="text" name="groupName" id="search" placeholder="모임을 검색해보세요!" required/>
 			</form>
     	</div>
+	<%
+		for (int i=0; i<3; i++) {
+			groupType = groupTypes[i];
+			iconType = iconTypes[i];
+			groups = groupList.get(i);
+	%>
 		<div class="section-category">
 			<div class="category">
-				<div class="category-name">최근 모임</div>
-				<img class="icon-clock" alt="" src="media/icon-clock.png">
+				<div class="category-name"><%=groupType %> 모임</div>
+				<img class="icon-<%=iconType %>" alt="" src="media/icon-<%=iconType %>.png">
 			</div>
       		<img class="icon-plus" alt="" src="media/icon-plus.png">
 			<div class="card-set">
+			<%
+				for (int groupcnt = 0; groupcnt < 4; groupcnt++) {
+					boolean flag = true;
+					try {
+						Group group = groups.get(groupcnt);
+						List<String> categories = getCategories(group.getCategory());
+			%>
 				<div class="card">
 					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example1.png">
+						  <img class="card-image" alt="" src="<%=group.getImageUrl() %>">
 						  
 						  <div class="time-info">
 								<div class="time-info-text">화 10:00 ~ 12:00</div>
 						  </div>
 						  <div class="member-status">
-								<div class="member-status-text">3/15</div>
+								<div class="member-status-text"><%= group.getCurrentMembers() %>/<%= group.getMaxMembers() %></div>
 								<img class="icon-people" alt="" src="media/icon-people.png">
 						  </div>
 						  <div class="title">
-								<div class="title-text">다독왕만들기</div>
+								<div class="title-text"><%=group.getTitle() %></div>
 						  </div>
 					</div>
 					<div class="section-tag">
+						<%
+							for (String category: categories) {
+						%>
 						  <div class="tag">
-								<div class="tag-box" style="background-color:#e9e587">
+								<div class="tag-box" style="background-color:<%=getCategoryColor(category)%>">
 								</div>
-								<div class="tag-text">토론</div>
+								<div class="tag-text"><%=category %></div>
 						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#87e9ba">
-								</div>
-								<div class="tag-text">취미</div>
-						  </div>
+						<%
+							}
+						 %>
 					</div>
 			  	</div>
-				<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example2.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">3/15</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">언어 교환 모임</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e98787"></div>
-								<div class="tag-text">언어</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#87b6e9">
-								</div>
-								<div class="tag-text">공부</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e9e587">
-								</div>
-								<div class="tag-text">토론</div>
-						  </div>
-					</div>
-			  	</div>
-				<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example3.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00, 목 13:00 ~ 15:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">8/10</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">공강 배드민턴</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#cecece">
-								</div>
-								<div class="tag-text">자유</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#8be3f4">
-								</div>
-								<div class="tag-text">운동</div>
-						  </div>
-					</div>
-			  	</div>
-      			<div class="card">
-        				<div class="card-frame">
-          					<img class="card-image" alt="" src="media/example4.png">
-          					
-							<div class="title">
-            					<div class="title-text">컴네 중간</div>
-          					</div>
-
-          					<div class="time-info">
-            						<div class="time-info-text">화 10:00 ~ 12:00, 목 13:00 ~ 15:00</div>
-          					</div>
-          					<div class="member-status">
-            						<div class="member-status-text">4/5</div>
-            						<img class="icon-people" alt="" src="media/icon-people.png">
-            						
-          					</div>
-          					
-        				</div>
-        				<div class="section-tag">
-          					<div class="tag">
-            						<div class="tag-box" style="background-color:#cecece">
-            						</div>
-            						<div class="tag-text">자유</div>
-          					</div>
-          					<div class="tag">
-            						<div class="tag-box" style="background-color:#87b6e9">
-            						</div>
-            						<div class="tag-text">공부</div>
-          					</div>
-        				</div>
-      			</div>
-			</div>
-    	</div>
-		<div class="section-category">
-			<div class="category">
-				<div class="category-name">운동 모임</div>
-				<img class="icon-fire" alt="" src="media/icon-fire.png">
-			</div>
-      		<img class="icon-plus" alt="" src="media/icon-plus.png">
-			<div class="card-set">
-				<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example1.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">3/15</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">다독왕만들기</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e9e587">
-								</div>
-								<div class="tag-text">토론</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#87e9ba">
-								</div>
-								<div class="tag-text">취미</div>
-						  </div>
-					</div>
-			  	</div>
-				<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example2.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">3/15</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">언어 교환 모임</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e98787">
-								</div>
-								<div class="tag-text">언어</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#87b6e9">
-								</div>
-								<div class="tag-text">공부</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e9e587">
-								</div>
-								<div class="tag-text">토론</div>
-						  </div>
-					</div>
-			  	</div>
-      			<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example3.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00, 목 13:00 ~ 15:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">8/10</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">공강 배드민턴</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#cecece">
-								</div>
-								<div class="tag-text">자유</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#8be3f4">
-								</div>
-								<div class="tag-text">운동</div>
-						  </div>
-					</div>
-			 	</div>
-      			<div class="card">
-        			<div class="card-frame">
-          				<img class="card-image" alt="" src="media/example4.png">
-          				<div class="time-info">
-            					<div class="time-info-text">화 10:00 ~ 12:00, 목 13:00 ~ 15:00</div>
-          				</div>
-          				<div class="member-status">
-            				<div class="member-status-text">4/5</div>
-            				<img class="icon-people" alt="" src="media/icon-people.png">
-            			</div>
-          				<div class="title">
-            				<div class="title-text">컴네 중간</div>
-          				</div>
-        			</div>
-        			<div class="section-tag">
-          				<div class="tag">
-            						<div class="tag-box" style="background-color:#cecece">
-            						</div>
-            						<div class="tag-text">자유</div>
-          				</div>
-          				<div class="tag">
-            				<div class="tag-box" style="background-color:#87b6e9">
-            				</div>
-            				<div class="tag-text">공부</div>
-          				</div>
-        			</div>
-      			</div>
-			</div>
-		</div>
-    	<div class="section-category">
-			<div class="category">
-				<div class="category-name">공부 모임</div>
-				<img class="icon-book" alt="" src="media/icon-book.png">
-			</div>
-      		<img class="icon-plus" alt="" src="media/icon-plus.png">
-
-			<div class="card-set">
-				<div class="card">
-					<div class="card-frame">
-						<img class="card-image" alt="" src="media/example1.png">
-						<div class="title">
-							<div class="title-text">다독왕만들기</div>
-					  	</div>
-						<div class="time-info">
-							<div class="time-info-text">화 10:00 ~ 12:00</div>
-						</div>
-						<div class="member-status">
-							<div class="member-status-text">3/15</div>
-							<img class="icon-people" alt="" src="media/icon-people.png">	
-						</div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e9e587">
-								</div>
-								<div class="tag-text">토론</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#87e9ba">
-								</div>
-								<div class="tag-text">취미</div>
-						  </div>
-					</div>
-			  	</div>
-				<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example2.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">3/15</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">언어 교환 모임</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e98787">
-								</div>
-								<div class="tag-text">언어</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#87b6e9">
-								</div>
-								<div class="tag-text">공부</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#e9e587">
-								</div>
-								<div class="tag-text">토론</div>
-						  </div>
-					</div>
-			 	</div>
-      			<div class="card">
-					<div class="card-frame">
-						  <img class="card-image" alt="" src="media/example3.png">
-						  
-						  <div class="time-info">
-								<div class="time-info-text">화 10:00 ~ 12:00, 목 13:00 ~ 15:00</div>
-						  </div>
-						  <div class="member-status">
-								<div class="member-status-text">8/10</div>
-								<img class="icon-people" alt="" src="media/icon-people.png">
-								
-						  </div>
-						  <div class="title">
-								<div class="title-text">공강 배드민턴</div>
-						  </div>
-					</div>
-					<div class="section-tag">
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#cecece">
-								</div>
-								<div class="tag-text">자유</div>
-						  </div>
-						  <div class="tag">
-								<div class="tag-box" style="background-color:#8be3f4">
-								</div>
-								<div class="tag-text">운동</div>
-						  </div>
-					</div>
-			  	</div>
-      			<div class="card">
-        			<div class="card-frame">
-          				<img class="card-image" alt="" src="media/example4.png">
-          				<div class="title">
-            				<div class="title-text">컴네 중간</div>
-          				</div>
-          				<div class="time-info">
-            				<div class="time-info-text">화 10:00 ~ 12:00, 목 13:00 ~ 15:00</div>
-          				</div>
-						<div class="member-status">
-            				<div class="member-status-text">4/5</div>
-            				<img class="icon-people" alt="" src="media/icon-people.png">		
-          				</div>
-        			</div>
-        			<div class="section-tag">
-          				<div class="tag">
-            				<div class="tag-box" style="background-color:#cecece">
-            				</div>
-            				<div class="tag-text">자유</div>
-          				</div>
-          				<div class="tag">
-            				<div class="tag-box" style="background-color:#87b6e9">
-            				</div>
-            				<div class="tag-text">공부</div>
-          				</div>
-        			</div>
-      			</div>
-			</div>
-    	</div>
+			<%			
+					} catch (Exception e) {					
+			%>
+				<div class="card" style="visibility: invisible; background-color:none;">
+					<div class="card-frame"></div>
+				</div>
+			<%
+					}
+				}
+		}
+			%>
   	</div>
 </body>
 </html>
+<%! private String getCategoryColor(String category) {
+	String result;
+	switch (category) {
+	case "토론": result = "#e9e587"; break;
+	case "공부": result = "#87b6e9"; break;
+	case "언어": result = "#e98787"; break;
+	case "자유": result = "#cecece"; break;
+	case "운동": result = "#8be3f4"; break;
+	case "취미": result = "#87e9ba"; break;
+	default: result = "grey"; break;
+	}
+	return result;
+}
+private List<String> getCategories(String category) {
+	List<String> categories = new ArrayList<>();
+	StringTokenizer tokenizer = new StringTokenizer(category, " ");
+	String tag = null;
+	int cnt = 0;
+	
+	while (tokenizer.hasMoreTokens()) {
+		tag = tokenizer.nextToken();
+		categories.add(tag);
+		cnt++;
+		if (cnt>3) break;
+	}
+	return categories;
+}
+%>

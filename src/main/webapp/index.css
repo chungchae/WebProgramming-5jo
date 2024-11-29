@@ -72,12 +72,10 @@
 
 /* card */
 .card-set {
-    position: relative;
     top: 0px;
     left: 15px;
 }
 .card {
-    position: relative;
     display: inline-block;
     background-color: white;
     width: 307px;
@@ -86,7 +84,7 @@
     border-radius: 50px;
 }
 .card-frame {
-    background-color: white;;
+    background-color: white;
     position: absolute;
     top: 0px;
     left: 0px;
