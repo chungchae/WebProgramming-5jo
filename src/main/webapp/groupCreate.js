@@ -1,10 +1,6 @@
 var day_cnt = 1;
 
 function checkForm() {
-    const groupName = document.getElementById("groupName").value;
-    const maxMember = document.getElementById("maxMember").value;
-    const intro = document.getElementById("intro").value;
-
     if (checkDay() == false) {
         return false;
     }
