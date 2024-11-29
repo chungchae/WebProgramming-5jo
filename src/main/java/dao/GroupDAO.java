@@ -2,6 +2,7 @@ package dao;
 
 import db.DBConnection;
 import model.Group;
+import model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -134,4 +135,26 @@ public class GroupDAO {
         }
     }
 
+    public List<User> getUsersByGroupId(int groupId) {
+        List<User> users = new ArrayList<>();
+        String query = "SELECT u.user_id, u.name FROM User u " +
+                "JOIN GroupUser gu ON u.user_id = gu.user_id " +
+                "WHERE gu.group_table_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, groupId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getLong("user_id"));
+                user.setName(rs.getString("name"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }

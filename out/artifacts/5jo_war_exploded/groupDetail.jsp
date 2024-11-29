@@ -1,26 +1,58 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="model.Group" %>
+<%@ page import="model.User" %>
+<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>그룹 상세 정보</title>
+    <title>그룹 상세</title>
 </head>
 <body>
-<h1>그룹 상세 정보</h1>
+<h1>그룹 상세</h1>
 <%
     Group group = (Group) request.getAttribute("group");
+    List<User> users = (List<User>) request.getAttribute("users");
+
     if (group != null) {
 %>
-<p>ID: <%= group.getId() %></p>
-<p>제목: <%= group.getTitle() %></p>
-<p>카테고리: <%= group.getCategory() %></p>
-<p>설명: <%= group.getDescription() %></p>
-<p>이미지: <img src="<%= group.getImageUrl() %>" alt="그룹 이미지" style="width:200px;"></p>
-<p>최대 인원: <%= group.getMaxMembers() %></p>
-<p>현재 인원: <%= group.getCurrentMembers() %></p>
+<table>
+    <tr><td>ID:</td><td><%= group.getId() %></td></tr>
+    <tr><td>제목:</td><td><%= group.getTitle() %></td></tr>
+    <tr><td>카테고리:</td><td><%= group.getCategory() %></td></tr>
+    <tr><td>설명:</td><td><%= group.getDescription() %></td></tr>
+    <tr><td>최대 인원:</td><td><%= group.getMaxMembers() %></td></tr>
+    <tr><td>현재 인원:</td><td><%= group.getCurrentMembers() %></td></tr>
+</table>
 
-<a href="<%= request.getContextPath() %>/groupEdit?id=<%= group.getId() %>">수정</a> |
-<a href="<%= request.getContextPath() %>/groupDelete?id=<%= group.getId() %>" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+<h2>소속된 사용자</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>이름</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+        if (users != null && !users.isEmpty()) {
+            for (User user : users) {
+    %>
+    <tr>
+        <td><%= user.getId() %></td>
+        <td><%= user.getName() %></td>
+    </tr>
+    <%
+        }
+    } else {
+    %>
+    <tr>
+        <td colspan="2">소속된 사용자가 없습니다.</td>
+    </tr>
+    <%
+        }
+    %>
+    </tbody>
+</table>
 <%
 } else {
 %>
