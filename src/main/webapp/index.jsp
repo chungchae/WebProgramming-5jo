@@ -24,6 +24,7 @@
 	sportsGroups = (List<Group>) request.getAttribute("sportsGroups");
 	studyGroups = (List<Group>) request.getAttribute("studyGroups");
 	
+
 	groupList.add(recentGroups);
 	groupList.add(sportsGroups);
 	groupList.add(studyGroups);
@@ -32,6 +33,7 @@
 	String iconTypes[] = { "clock", "fire", "book" }; 
 	String groupType, iconType;
 	List<Group> groups;
+	String invisible = "style='visibility: invisible;'";
 %>
   	<div class="div">
 		<div class="header">
@@ -89,6 +91,7 @@
 						Group group = groups.get(groupcnt);
 						List<String> categories = getCategories(group.getCategory());
 			%>
+			<a href="<%= request.getContextPath() %>/groupPage?id=<%= group.getId() %>">
 				<div class="card">
 					<div class="card-frame">
 						  <img class="card-image" alt="" src="<%=group.getImageUrl() %>">
@@ -118,6 +121,7 @@
 						 %>
 					</div>
 			  	</div>
+			  </a>
 			<%			
 					} catch (Exception e) {					
 			%>
