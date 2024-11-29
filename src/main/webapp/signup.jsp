@@ -45,7 +45,7 @@
             <div class="title-field">
                 <div class="title-text">회원가입</div>
             </div>
-            <form method="post" action='user/signup'>
+            <form method="post" action='user/signup' onsubmit="return formCheck()">
                 <div class="input-field">
                     <div class="input-kind">이메일</div>
                     <div class="box">
@@ -68,19 +68,19 @@
                 <div class="input-field">
                     <div class="input-kind">이름</div>
                     <div class="box">
-                    <input type="text" name="name" required class="inputbox" placeholder="이름을 입력하세요"></div>
+                    <input type="text" name="name" class="inputbox" placeholder="이름을 입력하세요" required></div>
                 </div>
 
                 <div class="input-field">
                     <div class="input-kind">학교</div>
                     <div class="box">
-                    <input type="text" name="univ" required class="inputbox" placeholder="대학교를 입력하세요"></div>
+                    <input type="text" name="univ" class="inputbox" placeholder="대학교를 입력하세요" required></div>
                 </div>
 
                 <div class="input-field">
                     <div class="input-kind">전공</div>
                     <div class="box">
-                    <input type="text" name="major" required class="inputbox" placeholder="학과(부)를 입력하세요"></div>
+                    <input type="text" name="major" class="inputbox" placeholder="학과(부)를 입력하세요" required></div>
                 </div>
 
                 <div class="input-field">
@@ -99,13 +99,13 @@
                 <div class="input-field">
                     <div class="input-kind">취미</div>
                     <div class="box">
-                    <input type="text" name="hobby" required class="inputbox" placeholder="취미를 입력하세요"></div>
+                    <input type="text" name="hobby" class="inputbox" placeholder="취미를 입력하세요" required></div>
                 </div>
 
                 <div class="input-field">
                     <div class="input-kind">소개</div>
                     <div class="box-large">
-                    <textarea name="introduction" class="textbox" id="intro" placeholder="소개를 입력하세요" required></textarea></div>
+                    <textarea name="introduction" class="textbox" placeholder="소개를 입력하세요" required></textarea></div>
                 </div>
 
                 <div class="submit-field">

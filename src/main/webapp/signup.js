@@ -1,7 +1,3 @@
-function checkEmail() {
-    var userEmail = $("#userEmail").value;
-    return true;
-}
 function isValidPw() {
     const regExp = /[^0-9a-zA-Z]/g;
     var userPw = document.getElementById("userPw").value;
@@ -35,23 +31,15 @@ function checkPw() {
     }
 }
 function formCheck() {
-    var userName = document.getElementById("userName").value;
-    var univ = document.getElementById("univ").value;
     var sel = document.getElementById("grade");
     var grade = sel.selectedIndex;
-    var major = document.getElementById("major").value;
-    var hobby = document.getElementById("hobby").value;
-    var intro = document.getElementById("intro").value;
-    /*if (checkEmail() == false) {
-        alert("이메일을 확인하세요");
-        return false;
-    }*/
+
     if (isValidPw() == false || checkPw() == false) {
         alert("비밀번호를 확인하세요");
         return false;
     }
 
-    if (userName == "" || univ == "" || major == "" || hobby == "" || intro == "" || grade == 0) {
+    if (grade == 0) {
         alert("모든 항목을 입력해주세요")
         return false;
     }
