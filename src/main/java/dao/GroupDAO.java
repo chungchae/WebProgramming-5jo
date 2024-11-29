@@ -150,6 +150,8 @@ public class GroupDAO {
                 User user = new User();
                 user.setId(rs.getLong("user_id"));
                 user.setName(rs.getString("name"));
+                user.setMajor(rs.getString("major"));
+                user.setGrade(rs.getInt("grade"));
                 users.add(user);
             }
         } catch (SQLException e) {
