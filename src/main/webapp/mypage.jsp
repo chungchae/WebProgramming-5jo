@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="model.*" %>
+<%@ page import="java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +16,16 @@
 </head>
 <body>
 <%
-	String userName = "김몽실";
-	String university = "동국대학교";
-	String major = "컴퓨터공학과";
-	String userEmail = "Mongsil^owo^8@naver.com";
-	String hobby = "운동,독서";
-	int grade = 4;
-	String introduction = "안녕하세요!\n취미는 운동이고 축구와 야구 좋아합니다.\n컴공 4학년 2학기 재학중이고 컴네, 암호학 수강중입니다.";
+	User user;	// 수정: 세선에서 유저 정보 받아와야 합니다
+	List<Group> groups = new ArrayList<>(); 	// 수정: 사용자의 소속 그룹 정보를 받아와야 합니다.
+	List<Day> days = new ArrayList<>();			// 수정: 그룹 모임 날짜 정보를 받아와야 합니다.
+	String userName = user.getName();
+	String university = user.getUniv();
+	String major = user.getMajor();
+	String userEmail = user.getEmail();
+	String hobby = user.getHobby();
+	int grade = user.getGrade();
+	String introduction = user.getIntroduction();
 %>
 	
   	<div class="div">
@@ -74,17 +79,35 @@
         </div>
         <div class="section-meeting">
             <div class="section-title">가입된 모임</div>
+          <%
+          	for (Group group: groups) {
+          %>
             <div class="card">
                 <div class="image-area">
-                    <img src="media/example1.png" alt="" class="card-image">
+                    <img src="<%=group.getImageUrl() %>" alt="" class="card-image">
                 </div>
                 <div class="info-area">
-                    <div class="meeting-name">다독왕만들기</div>
+                    <div class="meeting-name"><%=group.getTitle() %></div>
                     <div class="member-status">
                         <img class="icon-people" alt="" src="media/icon-people.png">
-                        <div class="member-status-text">3/15</div>
+                        <div class="member-status-text"><%=group.getCurrentMembers() %>/<%=group.getMaxMembers() %></div>
                     </div>
-                    <div class="meeting-time">화 10:00~12:00</div>
+                    <div class="meeting-time">
+                    <%
+                    	int daycnt = 0;
+                    	for (Day day: days) {
+                    		if (daycnt != 0) {
+                    %>
+                    		,&nbsp;
+                   	<% 
+                    		}
+                   	%>
+                    		<%=day.getDay() %>&nbsp;<%=day.getStartTime() %>~<%=day.getEndTime() %>
+                    <%
+                    	daycnt++;
+                    	}
+                    %>
+                    </div>
                     <div class="button-area">
                         <div class="button-box-withdrawal">
                             <button type="button" class="withdrawal">탈퇴</button>
@@ -92,25 +115,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="image-area">
-                    <img src="media/example4.png" alt="" class="card-image">
-                </div>
-                <div class="info-area">
-                    <div class="meeting-name">암호학 중간</div>
-                    <div class="member-status">
-                        <img class="icon-people" alt="" src="media/icon-people.png">
-                        <div class="member-status-text">3/5</div>
-                    </div>
-                    <div class="meeting-time">화 10:00~12:00, 목 13:00~15:00</div>
-                </div>
-                <div class="button-area">
-                    <div class="button-box-withdrawal">
-                        <button type="button" class="withdrawal">탈퇴</button>
-                    </div>  
-                </div>
-            </div>
-            
+       <%
+          	}     
+       %>
         </div>
         <div class="section-notice">
             <div class="section-title">알림</div>
@@ -137,25 +144,25 @@
             <button id="modalCloseButton" onclick="modalClose()"></button>
             <div id="modalContent">
                 <div id="modal-title">회원정보 수정</div>
-                <form method="post" onsubmit="return checkForm()">
+                <form method="post" action="/">
                     <div class="input-field">
                         <div class="input-kind">이름</div>
                         <div class="box">
-                            <input type="text" name="userName" id="userName" class="inputbox" value=<%=userName %> disabled>
+                            <input type="text" name="name" class="inputbox" value=<%=userName %> disabled>
                         </div>
                     </div>
 
                     <div class="input-field">
                         <div class="input-kind">이메일</div>
                         <div class="box">
-                            <input type="email" name="userEmail" id="userEmail" class="inputbox" value=<%=userEmail %> disabled>
+                            <input type="email" name="email" class="inputbox" value=<%=userEmail %> disabled>
                         </div>
                     </div>
 
                     <div class="input-field">
                         <div class="input-kind">대학교</div>
                         <div class="box">
-                            <input type="text" name="university" id="univ" class="inputbox" value=<%=university %>>
+                            <input type="text" name="univ" class="inputbox" value=<%=university %> required>
                         </div>
                     </div>
 
@@ -169,7 +176,7 @@
                     <div class="input-field">
                         <div class="input-kind">학년</div>
                         <div class="box">
-                            <select name="grade" id="grade" class="inputbox">
+                            <select name="grade" class="inputbox">
                                 <option value="1">1학년</option>
                                 <option value="2">2학년</option>
                                 <option value="3">3학년</option>
@@ -181,14 +188,14 @@
                     <div class="input-field">
                         <div class="input-kind">취미</div>
                         <div class="box">
-                            <input type="text" name="hobby" id="hobby" class="inputbox" value=<%=hobby %>>
+                            <input type="text" name="hobby" class="inputbox" value=<%=hobby %> required>
                         </div>
                     </div>
 
                     <div class="input-field">
                         <div class="input-kind">자기소개</div>
                         <div class="box-large">
-                            <textarea name="introduction" id="intro" class="textbox"><%=introduction %></textarea>
+                            <textarea name="introduction" class="textbox" required><%=introduction %></textarea>
                         </div>
                     </div>
 
