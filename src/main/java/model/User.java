@@ -8,6 +8,7 @@ public class User {
     private String major;
     private int grade;
     private String hobby;
+    private String introduction;
     
     // Getters and Setters
     public long getId() {
@@ -64,5 +65,13 @@ public class User {
 
 	public void setHobby(String hobby) {
 		this.hobby = hobby;
+	}
+
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 }
