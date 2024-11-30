@@ -17,7 +17,27 @@
 <body>
 <%
 	User user;	// 수정: 세선에서 유저 정보 받아와야 합니다
-	List<Group> groups = new ArrayList<>(); 	// 수정: 사용자의 소속 그룹 정보를 받아와야 합니다.
+	List<Group> groups = (List<Group>) request.getAttribute("groups");
+	List<List> alerts = new ArrayList<>();'
+	String alertsJson = (String) request.getAttribute("alerts");
+
+    // Parse the JSON data
+    if (alertsJson != null) {
+        JSONArray alertsArray = new JSONArray(alertsJson);
+
+        for (int i = 0; i < alertsArray.length(); i++) {
+            List<String> alert = new ArrayList<>();'
+        	JSONObject alert = alertsArray.getJSONObject(i);
+            long userId = alert.getLong("user_id");
+            String userName = alert.getString("user_name");
+            String groupTitle = alert.getString("group_title");
+            alert.add(userId.toString());
+            alert.add(userName);
+            alert.add(groupTitle);
+            alerts.add(alert);
+        }
+    }
+
 	List<Day> days = new ArrayList<>();			// 수정: 그룹 모임 날짜 정보를 받아와야 합니다.
 	String userName = user.getName();
 	String university = user.getUniv();
@@ -122,17 +142,27 @@
         </div>
         <div class="section-notice">
             <div class="section-title">알림</div>
+     <%
+     	for (List<String> alert: alerts) {
+     %>
             <div class="notice-line">
                 <div class="notice-content">
-                    김다독 님이 다독왕만들기 모임에 가입을 신청했습니다.
+                    <%=alert.get(1) %> 님이 <%=alert.get(2) %> 모임에 가입을 신청했습니다.
                 </div>
-                <div class="button-box-accept">
-                    <button type="button" class="accept">수락</button>
-                </div>
-                <div class="button-box-reject" >
-                    <button type="button" class="reject">거절</button>
-                </div>
+                <form class="button-box-accept" action="/group/join">
+                	<input type="hidden" value="<%=alert.get(0) %>" name="userId">
+                	<input type="hidden" value="<%=alert.get(2) %>" name="groupTitle">
+                    <button type="submit" class="accept">수락</button>
+                </form>
+                <form class="button-box-reject" action="/group/reject">
+                	<input type="hidden" value="<%=alert.get(0) %>" name="userId">
+                	<input type="hidden" value="<%=alert.get(2) %>" name="groupTitle">
+                    <button type="submit" class="reject">거절</button>
+                </form>
             </div>
+     <%
+     	}
+     %>
             <div class="notice-line">
                 <div class="notice-content">
                     김정독 님이 다독왕만들기 모임에서 탈퇴하였습니다.
