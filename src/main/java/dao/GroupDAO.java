@@ -12,6 +12,54 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class GroupDAO {
+    //main 화면, 최신 그룹 4개
+    public List<Group> findLatestGroups() {
+        List<Group> groups = new ArrayList<>();
+        String query = "SELECT * FROM group_table ORDER BY id DESC LIMIT 4";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                groups.add(mapResultSetToGroup(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return groups;
+    }
+
+    //main 화면, 카테고리 검색
+    public List<Group> findGroupsByCategory(String category) {
+        List<Group> groups = new ArrayList<>();
+        String query = "SELECT * FROM group_table WHERE category = ? ORDER BY id DESC LIMIT 4";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, category);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                groups.add(mapResultSetToGroup(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return groups;
+    }
+
+    private Group mapResultSetToGroup(ResultSet rs) throws SQLException {
+        return new Group(
+                rs.getInt("id"),
+                rs.getString("title"),
+                rs.getString("category"),
+                rs.getString("description"),
+                rs.getString("image_url"),
+                rs.getInt("max_members"),
+                rs.getInt("current_members")
+        );
+    }
     private List<Day> getDaysByGroupId(int groupId) {
         List<Day> days = new ArrayList<>();
         String query = "SELECT * FROM Day WHERE group_id = ?";

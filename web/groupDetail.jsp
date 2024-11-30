@@ -56,7 +56,6 @@
     %>
     </tbody>
 </table>
-
 <h2>소속된 사용자</h2>
 <table border="1">
     <thead>

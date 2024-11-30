@@ -15,6 +15,7 @@ public class GroupCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // 사용자 입력 데이터 가져오기
+        request.setCharacterEncoding("UTF-8");
         String title = request.getParameter("title");
         String category = request.getParameter("category");
         String description = request.getParameter("description");
