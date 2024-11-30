@@ -61,6 +61,7 @@
 	<% 
 			}
 	%>
+			<a href="<%= request.getContextPath() %>/groupPage?id=<%= group.getId() %>">
 				<div class="card">
 					<div class="image-area">
 						<img src="<%=group.getImageUrl() %>" alt="" class="card-image">
@@ -101,6 +102,7 @@
 			%>
 					</div>
 				</div>
+			</a>
 			<%
 				groupcnt++;
 				if (groupcnt % 4 == 0) {
