@@ -48,9 +48,13 @@ public class UserMyPageServlet extends HttpServlet {
                     if (userRs.next()) {
                         responseData.put("id", userRs.getLong("id"));
                         responseData.put("name", userRs.getString("name"));
+                        responseData.put("password", userRs.getString("password"));
                         responseData.put("univ", userRs.getString("univ"));
                         responseData.put("major", userRs.getString("major"));
                         responseData.put("introduction", userRs.getString("introduction"));
+                        responseData.put("grade", userRs.getString("grade"));
+                        responseData.put("email", userRs.getString("email"));
+                        responseData.put("hobby", userRs.getString("hobby"));
                     }
                 }
             }
