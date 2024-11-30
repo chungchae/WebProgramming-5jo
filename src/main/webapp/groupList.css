@@ -1,0 +1,111 @@
+.section-group {
+    width: 1350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    text-align: center;
+}
+.category-name {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 50px;
+}
+
+.card-set {
+    margin-left: 6px;
+    width: 1338px;
+    margin-bottom: 50px;
+}
+
+.card {
+    display: inline-block;
+    background-color: white;
+    width: 307px;
+    height: 340px;
+    margin-top: 20px;
+    margin-right: 12px;
+    margin-left: 12px;
+    border-radius: 50px;
+}
+.image-area {
+    width: 307px;
+    height: 200px;
+    border-radius: 50px 50px 0px 0px;
+}
+.card-image {
+    border-radius: 50px 50px 0px 0px;
+}
+.info-area{
+    width: 307px;
+    text-align: center;
+}
+.meeting-name {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
+}
+.member-status {
+    margin-top: 5px;
+}
+.member-status-text {
+    font-weight: 300;
+    font-size: 15px;
+    display: inline-block;
+}
+.icon-people {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+}
+.meeting-time {
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 3px;
+}
+.tag-area {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 267px;
+    text-align: left;
+}
+
+.tag {
+    display: inline-block;
+    width: 80px;
+    height: 35px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+.tag-box {
+    backdrop-filter: blur(4px);
+    border-radius: 75px;
+    background-color: none;
+    width: 80px;
+    height: 30px;
+}
+.tag-text {
+    position: absolute;
+    top: 2px;
+    left: 0px;
+    line-height: 28px;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    color: white;
+}
+
+
+.div {
+    position: relative;
+    background-color: #f5f7fa;
+    width: 100%;
+    text-align: left;
+    padding-bottom: 150px;
+    font-size: 16px;
+    color: black;
+    font-family: Inter;
+}
