@@ -55,6 +55,8 @@ public class UserMyPageServlet extends HttpServlet {
                 }
             }
 
+
+
             // 사용자가 가입한 모임 정보 조회
             String groupQuery = "SELECT g.id, g.title, g.image_url FROM GroupUser gu " +
                     "JOIN group_table g ON gu.group_table_id = g.id WHERE gu.user_id = ?";
@@ -74,7 +76,7 @@ public class UserMyPageServlet extends HttpServlet {
             responseData.put("groups", groupsArray);
 
             // 사용자가 방장인 그룹에 대한 가입 신청 알림 조회
-            String alertQuery = "SELECT gu.user_id, u.name, g.title " +
+            String alertQuery = "SELECT gu.user_id, u.name, g.title, g.id " +
                     "FROM GroupUser gu " +
                     "JOIN group_table g ON gu.group_id = g.id " +
                     "JOIN User u ON gu.user_id = u.id " +
@@ -93,6 +95,7 @@ public class UserMyPageServlet extends HttpServlet {
                         alertData.put("user_id", alertRs.getLong("user_id"));
                         alertData.put("user_name", alertRs.getString("name"));
                         alertData.put("group_title", alertRs.getString("title"));
+                        alertData.put("group_id", alertRs.getString("group_id"));
                         alertsArray.add(alertData);
                     }
                 }
