@@ -47,16 +47,16 @@
 				<div class="nav">
 					<div class="haeding-name">
 						<div class="nav-component">
-							<div class="label"><a href="groupCreate.html">새 모임 만들기</a></div>
+							<div class="label"><a href="groupCreate.jsp">새 모임 만들기</a></div>
 						</div>
 						<div class="nav-component">
-							<div class="label"><a href="index.html">모임 둘러보기</a></div>
+							<div class="label"><a href="index.jsp">모임 둘러보기</a></div>
 						</div>
 						<div class="nav-component">
-							<div class="label"><a href="mypage.html">마이페이지</a></div>
+							<div class="label"><a href="/user/mypage">마이페이지</a></div>
 						</div>
 						<div class="nav-component" class="logout">
-							<div class="label">로그아웃</div>
+							<div class="label"><a href="/user/logout">로그아웃</a></div>
 						</div>
 						<div class="nav-component">
 							<img class="icon-profile" alt="" src="media/icon-profile.png">
