@@ -16,12 +16,11 @@
 </head>
 <body>
 <%
-	User user;	// 수정: 세선에서 유저 정보 받아와야 합니다
+	User user = request.getAttribute("users");
 	List<Group> groups = (List<Group>) request.getAttribute("groups");
 	List<List> alerts = new ArrayList<>();'
 	String alertsJson = (String) request.getAttribute("alerts");
 
-    // Parse the JSON data
     if (alertsJson != null) {
         JSONArray alertsArray = new JSONArray(alertsJson);
 
@@ -30,10 +29,12 @@
         	JSONObject alert = alertsArray.getJSONObject(i);
             long userId = alert.getLong("user_id");
             String userName = alert.getString("user_name");
-            String groupTitle = alert.getString("group_title");
+            String groupTitle = alert.getString("group_title");\
+            String groupId = alert.getString("group_id");
             alert.add(userId.toString());
             alert.add(userName);
             alert.add(groupTitle);
+            alert.add(groupId);
             alerts.add(alert);
         }
     }
@@ -88,7 +89,7 @@
                     <td id="name"><%=userName %></td>
                 </tr>
                 <tr>
-                    <td id="affiliation"><%=university %> <%=major %> <%=grade %>학년</td>
+                    <td id="affiliation"><%=university %>&nbsp;<%=major %>&nbsp;<%=grade %>학년</td>
                 </tr>
                 <tr>
                     <td id="self-introduction"><%=introduction %></td>
@@ -130,9 +131,10 @@
                     %>
                     </div>
                     <div class="button-area">
-                        <div class="button-box-withdrawal">
-                            <button type="button" class="withdrawal">탈퇴</button>
-                        </div>  
+                        <form class="button-box-withdrawal" method="post" action="/group/leave">
+                        	<input type="hidden" name="groupId" value="<%=group.getId() %>">
+                            <button type="submit" class="withdrawal">탈퇴</button>
+                        </form>  
                     </div>
                 </div>
             </div>
@@ -151,12 +153,12 @@
                 </div>
                 <form class="button-box-accept" action="/group/join">
                 	<input type="hidden" value="<%=alert.get(0) %>" name="userId">
-                	<input type="hidden" value="<%=alert.get(2) %>" name="groupTitle">
+                	<input type="hidden" value="<%=alert.get(3) %>" name="groupId">
                     <button type="submit" class="accept">수락</button>
                 </form>
                 <form class="button-box-reject" action="/group/reject">
                 	<input type="hidden" value="<%=alert.get(0) %>" name="userId">
-                	<input type="hidden" value="<%=alert.get(2) %>" name="groupTitle">
+                	<input type="hidden" value="<%=alert.get(3) %>" name="groupId">
                     <button type="submit" class="reject">거절</button>
                 </form>
             </div>
