@@ -4,11 +4,13 @@ public class User {
     private long id;
     private String name;
     private String email;
+    private String password;
     private String univ;
     private String major;
     private int grade;
     private String hobby;
     private String introduction;
+
     
     // Getters and Setters
     public long getId() {
@@ -49,6 +51,14 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getUniv() {
