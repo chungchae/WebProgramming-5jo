@@ -1,5 +1,13 @@
 package model;
 
+import db.DBConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+
 public class Group {
     private int id;
     private String title;
@@ -18,6 +26,8 @@ public class Group {
         this.imageUrl = imageUrl;
         this.maxMembers = maxMembers;
         this.currentMembers = currentMembers;
+
+
     }
 
     // Getter와 Setter
@@ -28,4 +38,16 @@ public class Group {
     public String getImageUrl() { return imageUrl; }
     public int getMaxMembers() { return maxMembers; }
     public int getCurrentMembers() { return currentMembers; }
+
+    private List<Day> days;
+
+    public List<Day> getDays() {
+        return days;
+    }
+
+    public void setDays(List<Day> days) {
+        this.days = days;
+    }
+
+
 }
