@@ -20,6 +20,7 @@
 	List<Group> sportsGroups = null;
 	List<Group> studyGroups = null;
 	
+	// 수정: 종류별 모임 정보를 받아와야합니다.
 	recentGroups = (List<Group>) request.getAttribute("recentGroups");
 	sportsGroups = (List<Group>) request.getAttribute("sportsGroups");
 	studyGroups = (List<Group>) request.getAttribute("studyGroups");
@@ -82,7 +83,7 @@
 				<div class="category-name"><%=groupType %> 모임</div>
 				<img class="icon-<%=iconType %>" alt="" src="media/icon-<%=iconType %>.png">
 			</div>
-      		<img class="icon-plus" alt="" src="media/icon-plus.png">
+      		<a href="groupList.jsp"><img class="icon-plus" alt="" src="media/icon-plus.png"></a>
 			<div class="card-set">
 			<%
 				for (int groupcnt = 0; groupcnt < 4; groupcnt++) {
