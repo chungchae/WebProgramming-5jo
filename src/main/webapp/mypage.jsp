@@ -23,6 +23,7 @@
 	String university = user.getUniv();
 	String major = user.getMajor();
 	String userEmail = user.getEmail();
+	String userPw = user.getPassword();
 	String hobby = user.getHobby();
 	int grade = user.getGrade();
 	String introduction = user.getIntroduction();
@@ -144,7 +145,7 @@
             <button id="modalCloseButton" onclick="modalClose()"></button>
             <div id="modalContent">
                 <div id="modal-title">회원정보 수정</div>
-                <form method="post" action="/">
+                <form method="post" action="/user">
                     <div class="input-field">
                         <div class="input-kind">이름</div>
                         <div class="box">
@@ -156,6 +157,13 @@
                         <div class="input-kind">이메일</div>
                         <div class="box">
                             <input type="email" name="email" class="inputbox" value=<%=userEmail %> disabled>
+                        </div>
+                    </div>
+                    
+                    <div class="input-field">
+                        <div class="input-kind">비밀번호</div>
+                        <div class="box">
+                            <input type="password" name="password" class="inputbox" value=<%=userPw %> required>
                         </div>
                     </div>
 
