@@ -5,10 +5,7 @@ import model.Day;
 import model.Group;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 
 public class GroupDAO {
@@ -141,72 +138,62 @@ public class GroupDAO {
     }
 
 
-    public boolean createGroup(String title, String category, String description, String imageUrl, int maxMembers,
-                               String[] days, String[] startTimes, String[] endTimes) {
-        Connection conn = null;
-        PreparedStatement groupStmt = null;
-        PreparedStatement dayStmt = null;
+    public boolean createGroup(String title, String description, String imageUrl, int maxMembers,
+                               String[] categories, String[] days, String[] startTimes, String[] endTimes) {
+        String groupQuery = "INSERT INTO group_table (title, description, image_url, max_members) VALUES (?, ?, ?, ?)";
+        String categoryQuery = "INSERT INTO Category (group_id, category_name) VALUES (?, ?)";
+        String dayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
 
-        try {
-            conn = DBConnection.getConnection();
-            conn.setAutoCommit(false); // 트랜잭션 시작
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
 
-            // 그룹 데이터 삽입
-            String groupQuery = "INSERT INTO group_table (title, category, description, image_url, max_members, current_members) " +
-                    "VALUES (?, ?, ?, ?, ?, 0)";
-            groupStmt = conn.prepareStatement(groupQuery, PreparedStatement.RETURN_GENERATED_KEYS);
-            groupStmt.setString(1, title);
-            groupStmt.setString(2, category);
-            groupStmt.setString(3, description);
-            groupStmt.setString(4, imageUrl);
-            groupStmt.setInt(5, maxMembers);
+            // 그룹 생성
+            int groupId = 0;
+            try (PreparedStatement groupStmt = conn.prepareStatement(groupQuery, Statement.RETURN_GENERATED_KEYS)) {
+                groupStmt.setString(1, title);
+                groupStmt.setString(2, description);
+                groupStmt.setString(3, imageUrl);
+                groupStmt.setInt(4, maxMembers);
+                groupStmt.executeUpdate();
 
-            int rowsAffected = groupStmt.executeUpdate();
-            if (rowsAffected == 0) {
-                conn.rollback(); // 실패 시 롤백
-                return false;
-            }
-
-            // 생성된 그룹 ID 가져오기
-            ResultSet generatedKeys = groupStmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                int groupId = generatedKeys.getInt(1);
-
-                // Day 데이터 삽입
-                String dayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
-                dayStmt = conn.prepareStatement(dayQuery);
-
-                for (int i = 0; i < days.length; i++) {
-                    dayStmt.setInt(1, groupId);
-                    dayStmt.setString(2, days[i]);
-                    dayStmt.setString(3, startTimes[i]);
-                    dayStmt.setString(4, endTimes[i]);
-                    dayStmt.addBatch(); // 배치 처리로 성능 최적화
+                ResultSet rs = groupStmt.getGeneratedKeys();
+                if (rs.next()) {
+                    groupId = rs.getInt(1);
                 }
-
-                dayStmt.executeBatch(); // 배치 실행
             }
 
-            conn.commit(); // 성공 시 커밋
+            // 카테고리 저장
+            try (PreparedStatement categoryStmt = conn.prepareStatement(categoryQuery)) {
+                for (String category : categories) {
+                    if (category != null && !category.trim().isEmpty()) { // 빈 값이나 null인 경우 제외
+                        categoryStmt.setInt(1, groupId);
+                        categoryStmt.setString(2, category);
+                        categoryStmt.addBatch();
+                    }
+                }
+                categoryStmt.executeBatch();
+            }
+
+
+            // 운영 시간 저장
+            if (days != null && startTimes != null && endTimes != null) {
+                try (PreparedStatement dayStmt = conn.prepareStatement(dayQuery)) {
+                    for (int i = 0; i < days.length; i++) {
+                        dayStmt.setInt(1, groupId);
+                        dayStmt.setString(2, days[i]);
+                        dayStmt.setString(3, startTimes[i]);
+                        dayStmt.setString(4, endTimes[i]);
+                        dayStmt.addBatch();
+                    }
+                    dayStmt.executeBatch();
+                }
+            }
+
+            conn.commit();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            if (conn != null) {
-                try {
-                    conn.rollback(); // 예외 발생 시 롤백
-                } catch (SQLException rollbackEx) {
-                    rollbackEx.printStackTrace();
-                }
-            }
             return false;
-        } finally {
-            try {
-                if (groupStmt != null) groupStmt.close();
-                if (dayStmt != null) dayStmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
