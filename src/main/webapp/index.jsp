@@ -16,26 +16,13 @@
 <body>
 <%
 	List<List> groupList = new ArrayList<>();
-	List<Group> recentGroups = new ArrayList<>();
-	List<Group> sportsGroups = new ArrayList<>();
-	List<Group> studyGroups = new ArrayList<>();
-	/*
-	recentGroups = (List<Group>) request.getAttribute("latestGroups");
+	List<Group> recentGroups = null;
+	List<Group> sportsGroups = null;
+	List<Group> studyGroups = null;
+	recentGroups = 
 	sportsGroups = (List<Group>) request.getAttribute("exerciseGroups");
 	studyGroups = (List<Group>) request.getAttribute("studyGroups");
-	*/
-	Group newGroup = new Group(1,"모임", "토론 언어", "상세 설명", "media/example1.png", 15,3);
-	List<Day> newDays = new ArrayList<>();
-	Day day1 = new Day();
-	day1.setDay("월");
-	day1.setStartTime("10:00");
-	day1.setEndTime("12:00");
-	newDays.add(day1);
-	newGroup.setDays(newDays);
 	
-	recentGroups.add(newGroup);
-	sportsGroups.add(newGroup);
-	studyGroups.add(newGroup);
 	groupList.add(recentGroups);
 	groupList.add(sportsGroups);
 	groupList.add(studyGroups);
@@ -91,8 +78,8 @@
 	%>
 		<div class="section-category">
 			<div class="category-wrapper">
-				<img class="icon-clock" src="media/icon-clock.png" alt="">
-				<div class="category-name">최근 모임</div>
+				<img class="icon-<%=iconType %>" src="media/icon-<%=iconType %>.png" alt="">
+				<div class="category-name"><%=groupType %> 모임</div>
 			</div>
 			<div class="plus">
 				<a href="groupList.jsp"><img class="icon-plus" src="media/icon-plus.png" alt=""></a>
@@ -117,7 +104,21 @@
 							<img class="icon-people" alt="" src="media/icon-people.png">
 							<div class="member-status-text"><%=group.getCurrentMembers() %>/<%=group.getMaxMembers() %></div>
 						</div>
-						<div class="meeting-time">화 10:00~12:00</div>
+						<div class="meeting-time">
+				<%
+					int daycnt = 0;
+					for (Day day: days) {
+						if (daycnt != 0) {
+				%>
+						,&nbsp;
+				<%
+						}
+				%>
+						<%=day.getDay() %>&nbsp;<%=day.getStartTime() %>~<%=day.getEndTime() %>
+				<%
+					}
+				%>
+						</div>			
 					</div>
 					<div class="tag-area">
 				<%
@@ -134,7 +135,14 @@
 				</div>
 			</a>
 			<%			
-					} catch (Exception e) {	}				
+					} catch (Exception e) {	
+			%>
+					<div class="card" style="background-color: inherit; font-size: 24px; margin-left: 60px; vertical-align: baseline;">
+						해당하는 모임이 없습니다.
+					</div>
+			<%		
+					break;
+					}				
 				}
 			%>
 			</div>

@@ -1,28 +1,23 @@
 /* search */
 .search-group {
-    position: relative;
-    margin-top: 140px;
     margin-left: auto;
     margin-right: auto;
-    width: 921px;
-    height: 55px;
-    text-align: left;
+    text-align: center;
+    margin-top: 50px;
+    width: 1350px;
     font-size: 20px;
     color: #a9a9a9;
 }
 .search-box {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    border-radius: 30px;
+    display: inline-block;
     background-color: #fff;
-    width: 921px;
+    border-radius: 30px;
+    width: 750px;
     height: 55px;
 }
 #button-search {
-    position: absolute;
-    top: 8px;
-    left: 872px;
+    display: inline-block;
+    margin-top: 10px;
     width: 28px;
     height: 39px;
     background-image: url('media/icon-search.png');
@@ -31,9 +26,6 @@
     object-fit: contain;
 }
 #search {
-    position: absolute;
-    top: 9px;
-    left: 31px;
     display: inline-block;
     width: 672px;
     height: 34px;
@@ -45,184 +37,150 @@
 }
 
 /* group */
-.section-category {
-    position: relative;
-    margin-top: 50px;
+.section-group {
+    width: 1350px;
     margin-left: auto;
     margin-right: auto;
-    width: 1350px;
-    height: 392px;
+    margin-top: 15px;
+    text-align: center;
 }
-.category {
-    position: relative;
-    top: 0px;
-    left: 15px;
-    width: 165px;
-    height: 49px;
-    font-size: 24px;
+.section-category {
+    width: 1350px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+.category-wrapper {
+    display: inline-block;
+    width: 1000px;
 }
 .category-name {
-    position: absolute;
-    top: 0px;
-    left: 15px;
     display: inline-block;
-    width: 165px;
-    height: 49px;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 10px;
 }
 
-/* card */
 .card-set {
-    top: 0px;
-    left: 15px;
+    margin-left: 6px;
+    width: 1338px;
+    margin-bottom: 50px;
 }
+
 .card {
     display: inline-block;
     background-color: white;
     width: 307px;
-    height: 343px;
-    margin-right: 25px;
+    height: 340px;
+    margin-top: 20px;
+    margin-right: 12px;
+    margin-left: 12px;
     border-radius: 50px;
 }
-.card-frame {
-    background-color: white;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+.image-area {
     width: 307px;
-    height: 343px;
-    border-radius: 50px;
+    height: 200px;
+    border-radius: 50px 50px 0px 0px;
 }
 .card-image {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 307px;
-    height: 199px;
     border-radius: 50px 50px 0px 0px;
-    object-fit: cover;
 }
-.title {
-    position: absolute;
-    top: 210px;
-    left: 32px;
-    width: 243px;
-    height: 31px;
-    font-size: 20px;
-}
-.title-text {
-    font-weight: 500;
-    display: inline-block;
-    width: 243px;
-    height: 31px;
-}
-.time-info {
-    position: absolute;
-    top: 270px;
-    left: 60px;
-    width: 196px;
-    height: 31px;
+.info-area{
+    width: 307px;
     text-align: center;
 }
-.time-info-text {
-    font-weight: 300;
-    display: inline-block;
+.meeting-name {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
 }
-
 .member-status {
-    position: absolute;
-    top: 242px;
-    left: 63px;
-    width: 196px;
-    height: 32px;
+    margin-top: 5px;
 }
 .member-status-text {
-    position: absolute;
-    top: 2px;
-    left: 0px;
     font-weight: 300;
+    font-size: 15px;
     display: inline-block;
-    width: 196px;
-    height: 31px;
 }
 .icon-people {
-    position: absolute;
-    top: 0px;
-    left: 63px;
+    display: inline-block;
     width: 18px;
     height: 18px;
     object-fit: cover;
 }
-
-/* tag */
-.section-tag {
-    position: absolute;
-    top: 300px;
-    left: 25px;
-    width: 256px;
-    height: 35px;
-    font-size: 16px;
-    color: #fff;
+.meeting-time {
+    font-weight: 300;
+    font-size: 15px;
+    margin-top: 3px;
 }
+.tag-area {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 267px;
+    text-align: left;
+}
+
 .tag {
-    position: relative;
-    float: left;
-    top: 0px;
-    left: 0px;
-    width: 79px;
+    display: inline-block;
+    width: 80px;
     height: 35px;
     margin-left: 3px;
     margin-right: 3px;
 }
 .tag-box {
-    position: absolute;
-    top: 0px;
-    left: 0px;
     backdrop-filter: blur(4px);
     border-radius: 75px;
-    width: 79px;
+    background-color: none;
+    width: 80px;
     height: 30px;
 }
 .tag-text {
     position: absolute;
-    top: 1px;
+    top: 2px;
     left: 0px;
+    font-size: 16px;
     line-height: 28px;
     font-weight: 600;
     text-align: center;
     display: inline-block;
-    width: 79px;
+    width: 80px;
     height: 30px;
+    color: white;
 }
 
 /* components */
+.plus {
+    display: inline-block;
+    width: 300px;
+    text-align: right;
+}
 .icon-plus {
-    position: absolute;
-    top: 2px;
-    left: 1280px;
+    display: inline-block;
     width: 30px;
     height: 30px;
     object-fit: contain;
 }
 .icon-book {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 30px;
-    height: 30px;
+    display: inline-block;
+    text-align: left;
+    margin-left: 50px;
+    width: 28px;
+    height: 28px;
     object-fit: cover;
 }
 .icon-fire {
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    display: inline-block;
+    text-align: left;
+    margin-left: 50px;
     width: 30px;
     height: 30px;
     object-fit: cover;
 }
 .icon-clock {
-    position: absolute;
-    top: 2px;
-    left: 7px;
+    display: inline-block;
+    text-align: left;
+    margin-left: 50px;
     width: 24px;
     height: 24px;
     object-fit: cover;
