@@ -16,7 +16,7 @@
   	<div class="div">
     	<div class="header">
 			<div class="container">
-				<a href="index.html">
+				<a href="/main">
 				<div class="web-logo">
 					<img class="logo" alt="" src="media/Icon.svg">
 					<div class="logo-text">Project</div>
@@ -24,19 +24,19 @@
 				<div class="nav">
 					<div class="haeding-name">
 						<div class="nav-component">
-							<div class="label"><a href="groupCreate.html">새 모임 만들기</a></div>
+							<div class="label"><a href="/groupCreate">새 모임 만들기</a></div>
 						</div>
 						<div class="nav-component">
-							<div class="label"><a href="index.html">모임 둘러보기</a></div>
+							<div class="label"><a href="/main">모임 둘러보기</a></div>
 						</div>
 						<div class="nav-component">
-							<div class="label"><a href="mypage.html">마이페이지</a></div>
+							<div class="label"><a href="/user/mypage">마이페이지</a></div>
 						</div>
 						<div class="nav-component" class="logout">
-							<div class="label">로그아웃</div>
+							<a href="/user/logout"><div class="label">로그아웃</div></a>
 						</div>
 						<div class="nav-component">
-							<img class="icon-profile" alt="" src="media/icon-profile.png">
+							<a href="/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
 						</div>
 					</div>
 				</div>
