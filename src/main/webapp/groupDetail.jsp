@@ -27,10 +27,11 @@
     String imgUrl = null;
 	int maxMembers = 0;
 	int currentMembers = 0;
-	
+	int groupId = 0;
 	
 	// get group info
     if (group != null) {
+    	groupId = group.getId();
     	title = group.getTitle();
     	category = group.getCategory();
     	description = group.getDescription();
@@ -170,7 +171,8 @@
 				</div>
 			</div>
 			
-			<form class="box-button">
+			<form class="box-button" action="/group/join" method="post">
+				<input type="hidden" value="<%=groupId %>" name="groupId">
 				<input type="submit" value="모임 가입하기" class="submitbox">
 			</form>
 		</div>
