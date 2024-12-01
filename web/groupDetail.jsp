@@ -6,24 +6,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>그룹 상세</title>
+    <title>그룹 상세2</title>
 </head>
 <body>
-<h1>그룹 상세2</h1>
+<h1>그룹 상세</h1>
 <%
     Group group = (Group) request.getAttribute("group");
     List<User> users = (List<User>) request.getAttribute("users");
+    List<String> categories = (List<String>) request.getAttribute("categories");
 
     if (group != null) {
 %>
 <table>
     <tr><td>ID:</td><td><%= group.getId() %></td></tr>
     <tr><td>제목:</td><td><%= group.getTitle() %></td></tr>
-    <tr><td>카테고리:</td><td><%= group.getCategory() %></td></tr>
+    <tr><td>카테고리:</td>
+        <td>
+            <ul>
+                <%
+                    if (categories != null && !categories.isEmpty()) {
+                        for (String category : categories) {
+                %>
+                <li><%= category %></li>
+                <%
+                    }
+                } else {
+                %>
+                <li>카테고리가 없습니다.</li>
+                <%
+                    }
+                %>
+            </ul>
+        </td>
+    </tr>
     <tr><td>설명:</td><td><%= group.getDescription() %></td></tr>
     <tr><td>최대 인원:</td><td><%= group.getMaxMembers() %></td></tr>
     <tr><td>현재 인원:</td><td><%= group.getCurrentMembers() %></td></tr>
 </table>
+
 <h2>운영 요일</h2>
 <table>
     <thead>
@@ -56,6 +76,7 @@
     %>
     </tbody>
 </table>
+
 <h2>소속된 사용자</h2>
 <table border="1">
     <thead>
@@ -85,6 +106,7 @@
     %>
     </tbody>
 </table>
+
 <a href="<%= request.getContextPath() %>/groupEdit?id=<%= group.getId() %>">수정</a> |
 <a href="<%= request.getContextPath() %>/groupDelete?id=<%= group.getId() %>" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 <%

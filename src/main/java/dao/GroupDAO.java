@@ -277,4 +277,22 @@ public class GroupDAO {
         }
         return users;
     }
+
+    public List<String> getCategoriesByGroupId(int groupId) {
+        List<String> categories = new ArrayList<>();
+        String query = "SELECT category_name FROM Category WHERE group_id = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, groupId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                categories.add(rs.getString("category"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return categories;
+    }
 }
