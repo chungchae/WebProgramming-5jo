@@ -288,7 +288,7 @@ public class GroupDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                categories.add(rs.getString("category"));
+                categories.add(rs.getString("category_name"));
             }
         } catch (Exception e) {
             e.printStackTrace();
