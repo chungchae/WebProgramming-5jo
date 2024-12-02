@@ -18,7 +18,6 @@ public class GroupDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 그룹 ID 가져오기
         int groupId = Integer.parseInt(request.getParameter("id"));
         GroupDAO groupDAO = new GroupDAO();
 
@@ -30,9 +29,9 @@ public class GroupDetailServlet extends HttpServlet {
         List<User> users = groupDAO.getUsersByGroupId(groupId);
         request.setAttribute("users", users);
 
-        // 그룹의 카테고리 목록 가져오기
-        List<String> categories = groupDAO.getCategoriesByGroupId(groupId);
-        request.setAttribute("categories", categories);
+        // 리더의 userId 가져오기
+        Long leaderUserId = groupDAO.getGroupLeaderUserId(groupId);
+        request.setAttribute("leaderUserId", leaderUserId);
 
         // JSP로 포워딩
         RequestDispatcher dispatcher = request.getRequestDispatcher("/groupDetail.jsp");

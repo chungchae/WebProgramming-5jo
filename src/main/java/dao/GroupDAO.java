@@ -358,4 +358,20 @@ public class GroupDAO {
         }
         return categories;
     }
+
+    public Long getGroupLeaderUserId(int groupId) {
+        String query = "SELECT user_id FROM GroupUser WHERE group_table_id = ? AND statement = 'leader'";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, groupId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getLong("user_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // 리더가 없으면 null 반환
+    }
+
 }
