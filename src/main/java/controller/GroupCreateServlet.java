@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,13 @@ public class GroupCreateServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId"); // 세션에 저장된 userId를 가져옴
+        if (userId == null) {
+            response.sendRedirect(request.getContextPath() + "/login"); // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+            return;
+        }
 
         String title = request.getParameter("title");
         String description = request.getParameter("description");
@@ -33,9 +41,9 @@ public class GroupCreateServlet extends HttpServlet {
         String[] endTimes = request.getParameterValues("endTimes[]");
 
         GroupDAO groupDAO = new GroupDAO();
-        boolean isCreated = groupDAO.createGroup(title, description, imageUrl, maxMembers, categories, days, startTimes, endTimes);
+        boolean isSuccess = groupDAO.createGroup(title, description, imageUrl, maxMembers, categories, days, startTimes, endTimes, userId);
 
-        if (isCreated) {
+        if (isSuccess) {
             // 성공 시 알림창 띄우고 메인으로 리다이렉트
             response.getWriter().write("<script>alert('성공적으로 생성되었습니다!'); location.href='/main';</script>");
         } else {

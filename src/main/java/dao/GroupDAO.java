@@ -139,10 +139,11 @@ public class GroupDAO {
 
 
     public boolean createGroup(String title, String description, String imageUrl, int maxMembers,
-                               String[] categories, String[] days, String[] startTimes, String[] endTimes) {
+                               String[] categories, String[] days, String[] startTimes, String[] endTimes, Long userId) {
         String groupQuery = "INSERT INTO group_table (title, description, image_url, max_members) VALUES (?, ?, ?, ?)";
         String categoryQuery = "INSERT INTO Category (group_id, category_name) VALUES (?, ?)";
         String dayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
+        String groupUserQuery = "INSERT INTO GroupUser (group_table_id, user_id, statement) VALUES (?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection()) {
             conn.setAutoCommit(false);
@@ -163,17 +164,18 @@ public class GroupDAO {
             }
 
             // 카테고리 저장
-            try (PreparedStatement categoryStmt = conn.prepareStatement(categoryQuery)) {
-                for (String category : categories) {
-                    if (category != null && !category.trim().isEmpty()) { // 빈 값이나 null인 경우 제외
-                        categoryStmt.setInt(1, groupId);
-                        categoryStmt.setString(2, category);
-                        categoryStmt.addBatch();
+            if (categories != null) {
+                try (PreparedStatement categoryStmt = conn.prepareStatement(categoryQuery)) {
+                    for (String category : categories) {
+                        if (!category.isEmpty()) {
+                            categoryStmt.setInt(1, groupId);
+                            categoryStmt.setString(2, category);
+                            categoryStmt.addBatch();
+                        }
                     }
+                    categoryStmt.executeBatch();
                 }
-                categoryStmt.executeBatch();
             }
-
 
             // 운영 시간 저장
             if (days != null && startTimes != null && endTimes != null) {
@@ -189,6 +191,14 @@ public class GroupDAO {
                 }
             }
 
+            // GroupUser에 리더로 등록
+            try (PreparedStatement groupUserStmt = conn.prepareStatement(groupUserQuery)) {
+                groupUserStmt.setInt(1, groupId);
+                groupUserStmt.setLong(2, userId);
+                groupUserStmt.setString(3, "leader"); // statement 필드를 "leader"로 설정
+                groupUserStmt.executeUpdate();
+            }
+
             conn.commit();
             return true;
         } catch (SQLException e) {
@@ -196,7 +206,6 @@ public class GroupDAO {
             return false;
         }
     }
-
 
 
 
@@ -226,21 +235,75 @@ public class GroupDAO {
     }
 
 
-    public void updateGroup(int id, String title, String category, String description, String imageUrl, int maxMembers) {
-        String query = "UPDATE group_table SET title = ?, category = ?, description = ?, image_url = ?, max_members = ? WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, title);
-            pstmt.setString(2, category);
-            pstmt.setString(3, description);
-            pstmt.setString(4, imageUrl);
-            pstmt.setInt(5, maxMembers);
-            pstmt.setInt(6, id);
-            pstmt.executeUpdate();
+    public boolean updateGroup(int id, String title, String description, String imageUrl, int maxMembers,
+                               String[] categories, String[] days, String[] startTimes, String[] endTimes) {
+        String updateGroupQuery = "UPDATE group_table SET title = ?, description = ?, image_url = ?, max_members = ? WHERE id = ?";
+        String deleteCategoriesQuery = "DELETE FROM category WHERE group_id = ?";
+        String deleteDaysQuery = "DELETE FROM Day WHERE group_id = ?";
+        String insertCategoryQuery = "INSERT INTO category (group_id, category_name) VALUES (?, ?)";
+        String insertDayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // 그룹 정보 업데이트
+            try (PreparedStatement updateGroupStmt = conn.prepareStatement(updateGroupQuery)) {
+                updateGroupStmt.setString(1, title);
+                updateGroupStmt.setString(2, description);
+                updateGroupStmt.setString(3, imageUrl);
+                updateGroupStmt.setInt(4, maxMembers);
+                updateGroupStmt.setInt(5, id);
+                updateGroupStmt.executeUpdate();
+            }
+
+            // 기존 카테고리 삭제
+            try (PreparedStatement deleteCategoryStmt = conn.prepareStatement(deleteCategoriesQuery)) {
+                deleteCategoryStmt.setInt(1, id);
+                deleteCategoryStmt.executeUpdate();
+            }
+
+            // 새 카테고리 추가
+            if (categories != null) {
+                try (PreparedStatement insertCategoryStmt = conn.prepareStatement(insertCategoryQuery)) {
+                    for (String category : categories) {
+                        if (!category.isEmpty()) {
+                            insertCategoryStmt.setInt(1, id);
+                            insertCategoryStmt.setString(2, category);
+                            insertCategoryStmt.addBatch();
+                        }
+                    }
+                    insertCategoryStmt.executeBatch();
+                }
+            }
+
+            // 기존 운영 시간 삭제
+            try (PreparedStatement deleteDaysStmt = conn.prepareStatement(deleteDaysQuery)) {
+                deleteDaysStmt.setInt(1, id);
+                deleteDaysStmt.executeUpdate();
+            }
+
+            // 새 운영 시간 추가
+            if (days != null && startTimes != null && endTimes != null) {
+                try (PreparedStatement insertDayStmt = conn.prepareStatement(insertDayQuery)) {
+                    for (int i = 0; i < days.length; i++) {
+                        insertDayStmt.setInt(1, id);
+                        insertDayStmt.setString(2, days[i]);
+                        insertDayStmt.setString(3, startTimes[i]);
+                        insertDayStmt.setString(4, endTimes[i]);
+                        insertDayStmt.addBatch();
+                    }
+                    insertDayStmt.executeBatch();
+                }
+            }
+
+            conn.commit();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
+
 
     public void deleteGroup(int id) {
         String query = "DELETE FROM group_table WHERE id = ?";
@@ -255,8 +318,8 @@ public class GroupDAO {
 
     public List<User> getUsersByGroupId(int groupId) {
         List<User> users = new ArrayList<>();
-        String query = "SELECT u.user_id, u.name FROM User u " +
-                "JOIN GroupUser gu ON u.user_id = gu.user_id " +
+        String query = "SELECT u.id, u.name, u.major, u.grade FROM User u " +
+                "JOIN GroupUser gu ON u.id = gu.user_id " +
                 "WHERE gu.group_table_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -266,7 +329,7 @@ public class GroupDAO {
 
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getLong("user_id"));
+                user.setId(rs.getLong("id"));  // 변경: user_id -> id
                 user.setName(rs.getString("name"));
                 user.setMajor(rs.getString("major"));
                 user.setGrade(rs.getInt("grade"));
