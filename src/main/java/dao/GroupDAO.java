@@ -195,7 +195,7 @@ public class GroupDAO {
             try (PreparedStatement groupUserStmt = conn.prepareStatement(groupUserQuery)) {
                 groupUserStmt.setInt(1, groupId);
                 groupUserStmt.setLong(2, userId);
-                groupUserStmt.setString(3, "leader"); // statement 필드를 "leader"로 설정
+                groupUserStmt.setString(3, "방장"); // statement 필드를 "leader"로 설정
                 groupUserStmt.executeUpdate();
             }
 
@@ -360,7 +360,7 @@ public class GroupDAO {
     }
 
     public Long getGroupLeaderUserId(int groupId) {
-        String query = "SELECT user_id FROM GroupUser WHERE group_table_id = ? AND statement = 'leader'";
+        String query = "SELECT user_id FROM GroupUser WHERE group_table_id = ? AND statement = '방장'";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, groupId);
