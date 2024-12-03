@@ -1,6 +1,22 @@
 package model;
 
 public class User {
+	public User(Long id, String name, String password, String univ, String major, String introduction, int grade, String email, String hobby) {
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.univ = univ;
+		this.major = major;
+		this.introduction = introduction;
+		this.grade = grade;
+		this.email = email;
+		this.hobby = hobby;
+	}
+
+	public User() {
+
+	}
+
     private long id;
     private String name;
     private String email;

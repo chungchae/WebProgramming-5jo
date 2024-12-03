@@ -1,10 +1,9 @@
 package controller;
 
-
 import db.DBConnection;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
+import model.Alert;
+import model.Group;
+import model.User;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,108 +11,111 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/user/mypage")
 public class UserMyPageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        // 세션에서 userId와 email 가져오기
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         String email = (String) session.getAttribute("email");
 
-        if (userId == null) {
-            // 세션에 userId가 없으면 로그인 페이지로 리다이렉트
+        System.out.println("userId: " + userId + ", email: " + email);
+
+        if (userId == null || email == null) {
+            // 로그인되지 않은 경우 로그인 페이지로 리디렉션
             response.sendRedirect("/login.jsp");
             return;
         }
 
         try (Connection conn = DBConnection.getConnection()) {
-            JSONObject responseData = new JSONObject();
-
             // 사용자 정보 조회
             String userQuery = "SELECT * FROM User WHERE email = ?";
+            User user = null;
             try (PreparedStatement userStmt = conn.prepareStatement(userQuery)) {
                 userStmt.setString(1, email);
-                try (ResultSet userRs = userStmt.executeQuery()) {
-                    if (userRs.next()) {
-                        responseData.put("id", userRs.getLong("id"));
-                        responseData.put("name", userRs.getString("name"));
-                        responseData.put("password", userRs.getString("password"));
-                        responseData.put("univ", userRs.getString("univ"));
-                        responseData.put("major", userRs.getString("major"));
-                        responseData.put("introduction", userRs.getString("introduction"));
-                        responseData.put("grade", userRs.getString("grade"));
-                        responseData.put("email", userRs.getString("email"));
-                        responseData.put("hobby", userRs.getString("hobby"));
+                try (ResultSet rs = userStmt.executeQuery()) {
+                    if (rs.next()) {
+                        user = new User(
+                                rs.getLong("id"),
+                                rs.getString("name"),
+                                rs.getString("email"),
+                                rs.getString("password"),
+                                rs.getString("univ"),
+                                rs.getString("major"),
+                                rs.getInt("grade"),
+                                rs.getString("introduction"),
+                                rs.getString("hobby")
+                        );
                     }
                 }
             }
 
+            // user가 null일 경우, 오류 페이지로 리디렉션하거나 알림 처리
+            if (user == null) {
+                request.setAttribute("errorMessage", "User not found.");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+                return;
+            }
+            request.setAttribute("user", user);
 
-
-            // 사용자가 가입한 모임 정보 조회
+            // 가입된 모임 정보 조회
             String groupQuery = "SELECT g.id, g.title, g.image_url FROM GroupUser gu " +
                     "JOIN group_table g ON gu.group_table_id = g.id WHERE gu.user_id = ?";
-            JSONArray groupsArray = new JSONArray();
+            List<Group> groups = new ArrayList<>();
             try (PreparedStatement groupStmt = conn.prepareStatement(groupQuery)) {
                 groupStmt.setLong(1, userId);
-                try (ResultSet groupRs = groupStmt.executeQuery()) {
-                    while (groupRs.next()) {
-                        JSONObject groupData = new JSONObject();
-                        groupData.put("id", groupRs.getLong("id"));
-                        groupData.put("title", groupRs.getString("title"));
-                        groupData.put("image_url", groupRs.getString("image_url"));
-                        groupsArray.add(groupData);
+                try (ResultSet rs = groupStmt.executeQuery()) {
+                    while (rs.next()) {
+                        groups.add(new Group(
+                                rs.getInt("id"),
+                                rs.getString("title"),
+                                rs.getString("image_url")
+                        ));
                     }
                 }
             }
-            responseData.put("groups", groupsArray);
+            request.setAttribute("groups", groups);
 
-            // 사용자가 방장인 그룹에 대한 가입 신청 알림 조회
+            // 알림 조회
             String alertQuery = "SELECT gu.user_id, u.name, g.title, g.id " +
                     "FROM GroupUser gu " +
-                    "JOIN group_table g ON gu.group_id = g.id " +
+                    "JOIN group_table g ON gu.group_table_id = g.id " +  // group_id -> group_table_id
                     "JOIN User u ON gu.user_id = u.id " +
                     "WHERE g.id IN ( " +
-                    "    SELECT gu_inner.group_id " +
-                    "    FROM GroupUser gu_inner " +
+                    "    SELECT gu_inner.group_table_id " +  // group_id -> group_table_id
+                    "    FROM GroupUser gu_inner" +
                     "    WHERE gu_inner.user_id = ? AND gu_inner.statement = '방장' " +
                     ") " +
                     "AND gu.statement = '가입대기'";
-            JSONArray alertsArray = new JSONArray();
+            List<Alert> alerts = new ArrayList<>();
             try (PreparedStatement alertStmt = conn.prepareStatement(alertQuery)) {
                 alertStmt.setLong(1, userId);
-                try (ResultSet alertRs = alertStmt.executeQuery()) {
-                    while (alertRs.next()) {
-                        JSONObject alertData = new JSONObject();
-                        alertData.put("user_id", alertRs.getLong("user_id"));
-                        alertData.put("user_name", alertRs.getString("name"));
-                        alertData.put("group_title", alertRs.getString("title"));
-                        alertData.put("group_id", alertRs.getString("group_id"));
-                        alertsArray.add(alertData);
+                try (ResultSet rs = alertStmt.executeQuery()) {
+                    while (rs.next()) {
+                        alerts.add(new Alert(
+                                rs.getLong("user_id"),
+                                rs.getString("name"),
+                                rs.getString("title"),
+                                rs.getLong("id")
+                        ));
                     }
                 }
             }
-            responseData.put("alerts", alertsArray);
+            request.setAttribute("alerts", alerts);
 
-            // JSON 응답 전송
-            PrintWriter out = response.getWriter();
-            out.print(responseData.toString());
-            out.flush();
+            // JSP로 포워드
+            request.getRequestDispatcher("/mypage.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
-
 }

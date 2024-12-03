@@ -1,0 +1,116 @@
+html, body {
+    margin: 0;
+    line-height: normal;
+    background-color: #f5f7fa;
+}
+
+/* header */
+.header {
+    position: relative;
+    display: flex;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    background-color: white;
+    color: #18191f;
+}
+.container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    top: 0px;
+    left: 0px;
+    width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 84px;
+    overflow: hidden;
+}
+.web-logo {
+    position: relative;
+    height: 35%;
+    top: 32%;
+    left: 30px;
+    text-align: center;
+    color: #000;
+    font-family: 'Lexend Deca';
+}
+.logo {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 35px;
+    height: 35px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+.logo-text {
+    position: absolute;
+    top: 5px;
+    left: 30px;
+    width: 90px;
+    height: 30px;
+    text-align: center;
+    color: #000;
+    font-family: 'Lexend Deca';
+}
+.nav {
+    position: absolute;
+    height: 35%;
+    top: 37%;
+    left: 975px;
+    font-size: 10pt;
+    width: 500px;
+}
+.heading-name {
+    position: relative;
+    height: 100%;
+    top: 0px;
+    right: 0px;
+}
+.nav-component {
+    display: inline-block;
+    margin-left: 15px;
+}
+.logout {
+    color: #6b6b6b;
+}
+.label {
+    position: relative;
+    line-height: 24px;
+}
+.icon-profile {
+    position: absolute;
+    bottom: 2px;
+    width: 30px;
+    height: 30px;
+}
+a {
+    text-decoration-line: none;
+    color: inherit;
+}
+.color-debate {
+	background-color: #e9e587;
+}
+.color-free {
+	background-color: #cecece;
+}
+
+.color-study {
+	background-color: #87b6e9;
+}
+.color-sports {
+	background-color: #8be3f4;
+}
+.color-lang {
+	background-color: #e98787;
+}
+.color-hobby {
+	background-color: #87e9ba;
+}
+.color-default {
+	background-color: grey;
+}

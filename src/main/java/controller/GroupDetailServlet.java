@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class GroupDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int groupId = Integer.parseInt(request.getParameter("id"));
+
+        HttpSession session = request.getSession();
+
+        Long sessionUserId = (Long) session.getAttribute("userId");
         GroupDAO groupDAO = new GroupDAO();
 
         // 그룹 정보 가져오기
@@ -28,6 +33,13 @@ public class GroupDetailServlet extends HttpServlet {
         // 그룹에 속한 사용자 목록 가져오기
         List<User> users = groupDAO.getUsersByGroupId(groupId);
         request.setAttribute("users", users);
+
+        // 현재 사용자의 statement 가져오기
+        String statement = null;
+        if (sessionUserId != null) {
+            statement = groupDAO.getUserStatement(groupId, sessionUserId);
+        }
+        request.setAttribute("statement", statement);
 
         // JSP로 포워딩
         RequestDispatcher dispatcher = request.getRequestDispatcher("/groupDetail.jsp");
