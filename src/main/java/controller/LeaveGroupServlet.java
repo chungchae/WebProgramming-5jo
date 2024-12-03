@@ -56,10 +56,10 @@ public class LeaveGroupServlet extends HttpServlet {
 
                 if (rowsAffected > 0) {
                     response.setStatus(HttpServletResponse.SC_OK);
-                    response.getWriter().write("Successfully left the group.");
+                    response.getWriter().println("<script> location.href='/user/mypage';</script>");
                 } else {
                     response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                    response.getWriter().write("No membership record found for the given group and user.");
+                    response.getWriter().println("<script> location.href='/user/mypage';</script>");
                 }
             }
         } catch (SQLException e) {
