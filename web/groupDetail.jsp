@@ -162,7 +162,8 @@
         } else {
         %>
         <div class="box-button">
-            <form method="POST" action="<%= request.getContextPath() %>/groupJoin?id="<%= group.getId() %>>
+            <form method="POST" action="<%= request.getContextPath() %>/groupJoin">
+                <input type="hidden" name="id" value="<%= group.getId() %>">
                 <button type="submit" class="submitbox">가입 신청</button>
             </form>
         </div>

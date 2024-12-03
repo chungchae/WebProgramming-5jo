@@ -325,7 +325,7 @@ public class GroupDAO {
         List<User> users = new ArrayList<>();
         String query = "SELECT u.id, u.name, u.major, u.grade FROM User u " +
                 "JOIN GroupUser gu ON u.id = gu.user_id " +
-                "WHERE gu.group_table_id = ?";
+                "WHERE gu.group_table_id = ? AND gu.statement IN ('방장', '회원')";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -334,7 +334,7 @@ public class GroupDAO {
 
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getLong("id"));  // 변경: user_id -> id
+                user.setId(rs.getLong("id"));
                 user.setName(rs.getString("name"));
                 user.setMajor(rs.getString("major"));
                 user.setGrade(rs.getInt("grade"));
@@ -345,6 +345,7 @@ public class GroupDAO {
         }
         return users;
     }
+
 
     public List<String> getCategoriesByGroupId(int groupId) {
         List<String> categories = new ArrayList<>();
