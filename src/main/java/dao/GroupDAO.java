@@ -373,5 +373,20 @@ public class GroupDAO {
         }
         return null; // 리더가 없으면 null 반환
     }
+    public String getUserStatement(int groupId, Long userId) {
+        String query = "SELECT statement FROM GroupUser WHERE group_table_id = ? AND user_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, groupId);
+            pstmt.setLong(2, userId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("statement");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // statement가 없으면 null 반환
+    }
 
 }

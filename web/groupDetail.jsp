@@ -54,6 +54,8 @@
             List<String> categories = (List<String>) request.getAttribute("categories");
             Long sessionUserId = (Long) session.getAttribute("userId");
             Long leaderUserId = (Long) request.getAttribute("leaderUserId");
+            String statement = (String) request.getAttribute("statement"); // statement 값 가져오기
+
             if (group != null) {
         %>
         <div class="intro">
@@ -112,6 +114,7 @@
                             }
                         %>
                     </td>
+                    <td class="user-icon"><img src="<%= request.getContextPath() %>/media/icon-User.png" alt="" width="30px" height="30px"></td>
                     <td class="user-name"><%= user.getName() %></td>
                     <td class="major">컴퓨터공학과</td> <!-- 수정 필요 -->
                     <td class="grade">3학년</td> <!-- 수정 필요 -->
@@ -136,12 +139,30 @@
             </div>
         </div>
         <%
-            if (leaderUserId != null && sessionUserId != null && leaderUserId.equals(sessionUserId)) {
+            if ("방장".equals(statement)) {
         %>
         <div class="box-button">
             <a href="<%= request.getContextPath() %>/groupEdit?id=<%= group.getId() %>" class="submitbox">수정</a>
             <a href="<%= request.getContextPath() %>/groupDelete?id=<%= group.getId() %>" class="submitbox"
                onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+        </div>
+        <%
+        } else if ("회원".equals(statement)) {
+        %>
+        <div class="box-button">
+            <button class="submitbox" disabled>참여 중</button>
+        </div>
+        <%
+        } else if ("가입대기".equals(statement)) {
+        %>
+        <div class="box-button">
+            <button class="submitbox" disabled>대기 중</button>
+        </div>
+        <%
+        } else {
+        %>
+        <div class="box-button">
+            <a href="<%= request.getContextPath() %>/groupJoin?id=<%= group.getId() %>" class="submitbox">가입 신청</a>
         </div>
         <%
             }

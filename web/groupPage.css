@@ -172,16 +172,15 @@
 }
 
 .submitbox {
-    position: static;
-    margin-top: 6px;
-    margin-left: 20px;
+    position: relative;
+    justify-content: center;
+    align-content: center;
     display: flex;
     font-weight: 700;
     font-size: 20px;
     color: white;
-    background-color: inherit;
     border: none;
-    width: 250px;
+    width: 170px;
     height: 35px;
 }
 
