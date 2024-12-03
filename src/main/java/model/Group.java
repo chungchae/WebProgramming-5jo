@@ -30,6 +30,12 @@ public class Group {
 
     }
 
+    public Group(int id, String title, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
+    }
+
     // Getter와 Setter
     public int getId() { return id; }
     public String getTitle() { return title; }

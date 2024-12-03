@@ -17,7 +17,7 @@ import java.sql.ResultSet;
 public class GroupRejectServlet extends HttpServlet {
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 파라미터에서 groupId와 userId 가져오기
         String groupIdParam = request.getParameter("groupId");
@@ -69,10 +69,10 @@ public class GroupRejectServlet extends HttpServlet {
 
                 int rowsDeleted = deleteStmt.executeUpdate();
                 if (rowsDeleted > 0) {
-                    response.getWriter().write("User's request successfully rejected.");
+                    response.getWriter().println("<script> location.href='/user/mypage';</script>");
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    response.getWriter().write("Failed to reject user's request.");
+                    response.getWriter().println("<script> location.href='/user/mypage';</script>");
                 }
             }
 

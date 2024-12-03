@@ -15,19 +15,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet("/group/join")
+@WebServlet("/groupJoin")
 public class GroupJoinServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String group = request.getParameter("groupId");
+        int groupId = Integer.parseInt(request.getParameter("id"));
 
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId");
         String email = (String) session.getAttribute("email");
-
-        Long groupId = Long.parseLong(group);
 
         try (Connection conn = DBConnection.getConnection()) {
             // Step 1: 이미 그룹에 가입되었는지 확인
@@ -51,7 +49,7 @@ public class GroupJoinServlet extends HttpServlet {
             try (PreparedStatement insertStmt = conn.prepareStatement(insertQuery)) {
                 insertStmt.setLong(1, userId);
                 insertStmt.setLong(2, groupId);
-                insertStmt.setString(3, "대기중");
+                insertStmt.setString(3, "가입대기");
 
                 int rowsAffected = insertStmt.executeUpdate();
                 if (rowsAffected > 0) {

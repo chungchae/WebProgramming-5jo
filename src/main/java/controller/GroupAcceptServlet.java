@@ -69,12 +69,30 @@ public class GroupAcceptServlet extends HttpServlet {
 
                 int rowsUpdated = updateStmt.executeUpdate();
                 if (rowsUpdated > 0) {
-                    response.getWriter().write("User successfully added to the group.");
+                    response.getWriter().println("<script> location.href='/user/mypage';</script>");
                 } else {
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                    response.getWriter().write("Failed to update user status.");
+                    response.getWriter().println("<script> location.href='/user/mypage';</script>");
                 }
             }
+
+            String updateGroupQuery = "UPDATE group_table SET current_members = current_members + 1 " +
+                    "WHERE id = ?";
+            try (PreparedStatement updateGroupStmt = conn.prepareStatement(updateGroupQuery)) {
+                updateGroupStmt.setLong(1, groupId);
+
+                int rowsUpdated = updateGroupStmt.executeUpdate();
+                if (rowsUpdated == 0) {
+                    // 업데이트 실패 시 롤백
+                    conn.rollback();
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().write("Failed to update group current_members.");
+                    return;
+                }
+            }
+
+            conn.commit();
+            response.getWriter().write("User successfully added to the group, and current_members updated.");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class LeaveGroupServlet extends HttpServlet {
 
     @Override
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String groupIdParam = request.getParameter("groupId");
 
@@ -47,7 +47,7 @@ public class LeaveGroupServlet extends HttpServlet {
 
         // 데이터베이스에서 GroupUser 테이블의 해당 레코드 삭제
         try (Connection connection = DBConnection.getConnection()) {
-            String sql = "DELETE FROM GroupUser WHERE user_id = ? AND group_id = ?";
+            String sql = "DELETE FROM GroupUser WHERE user_id = ? AND group_table_id = ?";
             try (PreparedStatement statement = connection.prepareStatement(sql)) {
                 statement.setLong(1, userId);
                 statement.setLong(2, groupId);
