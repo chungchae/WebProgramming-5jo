@@ -28,13 +28,17 @@ public class GroupDAO {
     }
 
     //main 화면, 카테고리 검색
-    public List<Group> findGroupsByCategory(String category) {
+    public List<Group> findGroupsByCategory(String categoryName) {
         List<Group> groups = new ArrayList<>();
-        String query = "SELECT * FROM group_table WHERE category = ? ORDER BY id DESC LIMIT 4";
+        String query = "SELECT g.* FROM group_table g " +
+                "JOIN Category c ON g.id = c.group_id " +
+                "WHERE c.category_name = ? " +
+                "ORDER BY g.id DESC " +
+                "LIMIT 4";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
-            pstmt.setString(1, category);
+            pstmt.setString(1, categoryName);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -45,6 +49,7 @@ public class GroupDAO {
         }
         return groups;
     }
+
 
     private Group mapResultSetToGroup(ResultSet rs) throws SQLException {
         return new Group(

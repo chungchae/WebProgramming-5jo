@@ -25,7 +25,7 @@
             <div class="nav">
                 <div class="haeding-name">
                     <div class="nav-component">
-                        <div class="label"><a href="<%= request.getContextPath() %>/groupCreate">새 모임 만들기</a></div>
+                        <div class="label"><a href="<%= request.getContextPath() %>/groupCreate.jsp">새 모임 만들기</a></div>
                     </div>
                     <div class="nav-component">
                         <div class="label"><a href="<%= request.getContextPath() %>/main">모임 둘러보기</a></div>
