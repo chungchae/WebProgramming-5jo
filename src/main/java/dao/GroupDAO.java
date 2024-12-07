@@ -152,6 +152,8 @@ public class GroupDAO {
     }
 
 
+
+
     public List<Group> findGroups(String groupType, String groupName) {
         List<Group> groups = new ArrayList<>();
         String query = "SELECT * FROM group_table WHERE category = ? AND title LIKE ?";
