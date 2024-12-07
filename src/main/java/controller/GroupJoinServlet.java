@@ -47,7 +47,7 @@ public class GroupJoinServlet extends HttpServlet {
 
         if (userId == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("로그인이 필요합니다.");
+            out.println("<script>location.href='/login.jsp';</script>");
             return;
         }
 

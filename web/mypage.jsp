@@ -24,7 +24,7 @@
         <div class="container">
             <a href="/main">
                 <div class="web-logo">
-                    <img class="logo" alt="" src="media/Icon.svg">
+                    <img class="logo" alt="" src="/media/Icon.svg">
                     <div class="logo-text">Project</div>
                 </div>
             </a>
@@ -57,7 +57,7 @@
                 <td colspan="2" class="blank"><div id="button-box-modify"><button type="button" id="button-modify" onclick="modalOpen()">수정</button></div></td>
             </tr>
             <tr>
-                <td rowspan="3"><div id="profile-image"></div></td>
+                <td rowspan="3"><img id="profile-image" src="/media/profile-image.png"></td>
                 <td id="name"><%= user.getName() %></td>
             </tr>
             <tr>
@@ -81,6 +81,7 @@
         <% for (Group group : groups) { %>
         <div class="card">
             <div class="info-area">
+                <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
                 <div class="meeting-name"><%= group.getTitle() %></div>
                 <div><%= group.getCategory()%></div>
                 <div class="meeting-time">...</div>
@@ -91,6 +92,7 @@
                     <button type="submit" class="withdrawal">탈퇴</button>
                 </form>
             </div>
+            </a>
         </div>
 
         <% } %>

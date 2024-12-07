@@ -19,6 +19,7 @@
                     <a href="/main">
                     <img class="logo" alt="" src="media/Icon.svg">
                     <div class="logo-text">Project</div>
+                    </a>
                 </div>
                 <div class="nav" style="display: none;">
                     <div class="haeding-name">
