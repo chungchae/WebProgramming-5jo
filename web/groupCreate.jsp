@@ -69,11 +69,11 @@
       </div>
 
       <div class="input-field days">
-        <div class="input-kind">모임 시간</div>
-        <div id="daysContainer">
-          <div>
-            <label>요일:</label>
-            <select name="days[]" class="selectbox" required>
+        <div class="input-kind" style="inline-block;">모임 시간
+        <button type="button" class="plus-button" onclick="addDay()" style="margin-left:425px; margin-right: 0px; height: 25px;"></button>
+        </div>
+        <div id="daysContainer" style="text-align: left; margin-left: 25px; width: 600px;">
+            <select name="days[]" class="selectbox" required style="display: inline-block;">
               <option disabled selected hidden>요일</option>
               <option value="월">월</option>
               <option value="화">화</option>
@@ -83,13 +83,11 @@
               <option value="토">토</option>
               <option value="일">일</option>
             </select>
-            <label>시작 시간:</label>
+            <div style="display: inline-block; margin-left: 10px;">모임 시간:
             <input type="time" class="timebox" name="startTimes[]" required>
-            <label>종료 시간:</label>
-            <input type="time" class="timebox" name="endTimes[]" required>
-          </div>
+            ~
+            <input type="time" class="timebox" name="endTimes[]" required></div>
         </div>
-        <button type="button" class="plus-button" onclick="addDay()">+ 추가</button>
       </div>
 
       <div class="input-field">
@@ -159,24 +157,24 @@
     const container = document.getElementById('daysContainer');
     const div = document.createElement('div');
     div.innerHTML = `
-			<label>요일:</label>
-			<select name="days[]" class="selectbox" required>
-				<option disabled selected hidden>요일</option>
-				<option value="월">월</option>
-				<option value="화">화</option>
-				<option value="수">수</option>
-				<option value="목">목</option>
-				<option value="금">금</option>
-				<option value="토">토</option>
-				<option value="일">일</option>
-			</select>
-			<label>시작 시간:</label>
-			<input type="time" class="timebox" name="startTimes[]" required>
-			<label>종료 시간:</label>
-			<input type="time" class="timebox" name="endTimes[]" required>
-			<button type="button" onclick="this.parentElement.remove()">삭제</button>
-		`;
-    container.appendChild(div);
+    	<select name="days[]" class="selectbox" required style="display: inline-block;">
+    	    <option disabled selected hidden>요일</option>
+    	    <option value="월">월</option>
+    	    <option value="화">화</option>
+    	    <option value="수">수</option>
+    	    <option value="목">목</option>
+    	    <option value="금">금</option>
+    	    <option value="토">토</option>
+    	    <option value="일">일</option>
+    	  </select>
+    	  <div style="display: inline-block; margin-left: 10px;">모임 시간:
+    	  <input type="time" class="timebox" name="startTimes[]" required>
+    	   ~
+    	  <input type="time" class="timebox" name="endTimes[]" required></div>
+          <button type="button" onclick="this.parentElement.remove(); dayCount--; checkDayCount();" style="margin-left: 10px;">삭제</button>
+        `;
+        container.appendChild(div);
+        dayCount++;
   }
 </script>
 </html>

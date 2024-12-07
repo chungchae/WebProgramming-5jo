@@ -37,7 +37,7 @@ public class UserLoginServlet extends HttpServlet {
                 session.setAttribute("userId", rs.getLong("id")); // 사용자 ID 저장
                 session.setAttribute("email", rs.getString("email"));
 
-                response.getWriter().println("<script>alert('로그인이 성공하셨습니다..'); location.href='/index.jsp';</script>");
+                response.getWriter().println("<script>alert('로그인이 성공하셨습니다..'); location.href='/main';</script>");
             } else {
                 // 로그인 실패
                 response.getWriter().println("<script>alert('이메일 또는 비밀번호가 잘못되었습니다.'); history.back();</script>");

@@ -23,7 +23,7 @@ public class GroupCreateServlet extends HttpServlet {
         HttpSession session = request.getSession();
         Long userId = (Long) session.getAttribute("userId"); // 세션에 저장된 userId를 가져옴
         if (userId == null) {
-            response.sendRedirect(request.getContextPath() + "/login"); // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+            response.sendRedirect(request.getContextPath() + "/login.jsp"); // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
             return;
         }
 
