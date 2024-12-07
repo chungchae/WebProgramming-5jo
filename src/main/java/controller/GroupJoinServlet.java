@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +21,11 @@ public class GroupJoinServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        response.setCharacterEncoding("UTF-8");
+
+        PrintWriter out = response.getWriter();
         // URL 파라미터에서 groupId를 가져오기
-        String groupIdParam = request.getParameter("id");
+        String groupIdParam = request.getParameter("groupId");
         if (groupIdParam == null || groupIdParam.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             response.getWriter().write("그룹 ID가 전달되지 않았습니다.");
@@ -75,7 +79,7 @@ public class GroupJoinServlet extends HttpServlet {
                 int rowsAffected = insertStmt.executeUpdate();
                 if (rowsAffected > 0) {
                     // 가입 신청 성공 시 리디렉션
-                    response.sendRedirect(request.getContextPath() + "/groupDetail?id=" + groupId);
+                    out.println("<script>location.href='/user/mypage';</script>");
                 } else {
                     response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                     request.setAttribute("message", "가입 신청 처리에 실패했습니다.");

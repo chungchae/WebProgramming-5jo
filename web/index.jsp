@@ -181,10 +181,18 @@
 
 	private List<String> getCategories(String category) {
 		List<String> categories = new ArrayList<>();
+		if (category == null || category.isEmpty()) {
+			return categories; // category가 null 또는 빈 문자열이면 빈 리스트 반환
+		}
 		StringTokenizer tokenizer = new StringTokenizer(category, " ");
+		String tag = null;
+		int cnt = 0;
+
 		while (tokenizer.hasMoreTokens()) {
-			categories.add(tokenizer.nextToken());
-			if (categories.size() >= 3) break;
+			tag = tokenizer.nextToken();
+			categories.add(tag);
+			cnt++;
+			if (cnt > 3) break;
 		}
 		return categories;
 	}
