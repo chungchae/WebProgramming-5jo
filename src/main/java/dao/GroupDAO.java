@@ -145,7 +145,7 @@ public class GroupDAO {
 
     public boolean createGroup(String title, String description, String imageUrl, int maxMembers,
                                String[] categories, String[] days, String[] startTimes, String[] endTimes, Long userId) {
-        String groupQuery = "INSERT INTO group_table (title, description, image_url, max_members) VALUES (?, ?, ?, ?)";
+        String groupQuery = "INSERT INTO group_table (title, description, image_url, max_members,current_members) VALUES (?, ?, ?, ?,?)";
         String categoryQuery = "INSERT INTO Category (group_id, category_name) VALUES (?, ?)";
         String dayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
         String groupUserQuery = "INSERT INTO GroupUser (group_table_id, user_id, statement) VALUES (?, ?, ?)";
@@ -160,6 +160,7 @@ public class GroupDAO {
                 groupStmt.setString(2, description);
                 groupStmt.setString(3, imageUrl);
                 groupStmt.setInt(4, maxMembers);
+                groupStmt.setInt(5,1);
                 groupStmt.executeUpdate();
 
                 ResultSet rs = groupStmt.getGeneratedKeys();
