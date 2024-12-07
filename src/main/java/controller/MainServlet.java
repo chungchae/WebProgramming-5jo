@@ -19,23 +19,23 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         GroupDAO groupDAO = new GroupDAO();
-
-        HttpSession session = request.getSession();
-        Long userId = (Long) session.getAttribute("userId");
-        String email = (String) session.getAttribute("email");
+//
+//        HttpSession session = request.getSession();
+//        Long userId = (Long) session.getAttribute("userId");
+//        String email = (String) session.getAttribute("email");
 
 
         List<Group> latestGroups = groupDAO.findLatestGroups();
         List<Group> exerciseGroups = groupDAO.findGroupsByCategory("운동");
         List<Group> studyGroups = groupDAO.findGroupsByCategory("공부");
 
-        request.setAttribute("userId", userId);
-        request.setAttribute("email",email);
+//        request.setAttribute("userId", userId);
+//        request.setAttribute("email",email);
         request.setAttribute("latestGroups", latestGroups);
         request.setAttribute("exerciseGroups", exerciseGroups);
         request.setAttribute("studyGroups", studyGroups);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
         dispatcher.forward(request, response);
     }
 }

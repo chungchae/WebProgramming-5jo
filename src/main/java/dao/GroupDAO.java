@@ -20,7 +20,23 @@ public class GroupDAO {
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                groups.add(mapResultSetToGroup(rs));
+                Group group = new Group(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        null, // Category는 별도로 설정
+                        rs.getString("description"),
+                        rs.getString("image_url"),
+                        rs.getInt("max_members"),
+                        rs.getInt("current_members")
+                );
+
+                // Days 설정
+                group.setDays(getDaysByGroupId(group.getId()));
+
+                // Categories 설정
+                group.setCategories(getCategoriesByGroupId(group.getId()));
+
+                groups.add(group);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +59,24 @@ public class GroupDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                groups.add(mapResultSetToGroup(rs));
+                // 그룹 기본 정보 매핑
+                Group group = new Group(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        null, // 카테고리는 아래에서 추가
+                        rs.getString("description"),
+                        rs.getString("image_url"),
+                        rs.getInt("max_members"),
+                        rs.getInt("current_members")
+                );
+
+                // Days 설정
+                group.setDays(getDaysByGroupId(group.getId()));
+
+                // Categories 설정
+                group.setCategories(getCategoriesByGroupId(group.getId()));
+
+                groups.add(group);
             }
         } catch (SQLException e) {
             e.printStackTrace();
