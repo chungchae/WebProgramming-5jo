@@ -1,16 +1,16 @@
 package model;
 
 public class Category {
-    private int id;         // 카테고리 ID
-    private String name;    // 카테고리 이름
+    private int id;              // 카테고리 ID
+    private String categoryName; // 카테고리 이름
 
     // 기본 생성자
     public Category() {}
 
     // 생성자
-    public Category(int id, String name) {
+    public Category(int id, String categoryName) {
         this.id = id;
-        this.name = name;
+        this.categoryName = categoryName;
     }
 
     // Getter와 Setter
@@ -22,19 +22,19 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @Override
     public String toString() {
         return "Category{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", categoryName='" + categoryName + '\'' +
                 '}';
     }
 }

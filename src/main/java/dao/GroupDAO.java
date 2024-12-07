@@ -1,6 +1,7 @@
 package dao;
 
 import db.DBConnection;
+import model.Category;
 import model.Day;
 import model.Group;
 import model.User;
@@ -96,13 +97,19 @@ public class GroupDAO {
                 Group group = new Group(
                         rs.getInt("id"),
                         rs.getString("title"),
-                        rs.getString("category"),
+                        null, // Category는 별도로 설정
                         rs.getString("description"),
                         rs.getString("image_url"),
                         rs.getInt("max_members"),
                         rs.getInt("current_members")
                 );
-                group.setDays(getDaysByGroupId(group.getId())); // Days 포함
+
+                // Days 설정
+                group.setDays(getDaysByGroupId(group.getId()));
+
+                // Categories 설정
+                group.setCategories(getCategoriesByGroupId(group.getId()));
+
                 groups.add(group);
             }
         } catch (SQLException e) {
@@ -348,8 +355,8 @@ public class GroupDAO {
     }
 
 
-    public List<String> getCategoriesByGroupId(int groupId) {
-        List<String> categories = new ArrayList<>();
+    private List<Category> getCategoriesByGroupId(int groupId) {
+        List<Category> categories = new ArrayList<>();
         String query = "SELECT category_name FROM Category WHERE group_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
@@ -358,13 +365,16 @@ public class GroupDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                categories.add(rs.getString("category_name"));
+                Category category = new Category();
+                category.setCategoryName(rs.getString("category_name")); // Category 객체의 setter 사용
+                categories.add(category);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return categories;
     }
+
 
     public Long getGroupLeaderUserId(int groupId) {
         String query = "SELECT user_id FROM GroupUser WHERE group_table_id = ? AND statement = '방장'";
