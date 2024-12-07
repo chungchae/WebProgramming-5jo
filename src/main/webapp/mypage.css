@@ -6,10 +6,12 @@
 }
 #profile-image {
     display: inline-block;
-    background-image: url('media/profile-image.png');
+    background-image: url('media/profile-default.jpg');
     width: 265px;
     height: 245px;
-    border-radius: 50px;
+    border-radius: 100px;
+    background-size: contain;
+    background-position: center;
 }
 #profile {
     margin-left: 50px;
@@ -40,7 +42,7 @@
     background-color: #33B4FF;
 }
 #name {
-    padding-left: 25px;
+    padding-left: 70px;
     width: 800px;
     padding-top: 20px;
     height: 30px;
@@ -49,14 +51,14 @@
     color: black;
 }
 #affiliation {
-    padding-left: 25px;
+    padding-left: 70px;
     width: 800px;
     height: 20px;
     font-size: 15px;
     color: grey;
 }
 #self-introduction {
-    padding-left: 25px;
+    padding-left: 70px;
     width: 800px;
     height: 100px;
     font-size: 15px;
