@@ -355,7 +355,7 @@ public class GroupDAO {
     }
 
 
-    private List<Category> getCategoriesByGroupId(int groupId) {
+    public List<Category> getCategoriesByGroupId(int groupId) {
         List<Category> categories = new ArrayList<>();
         String query = "SELECT category_name FROM Category WHERE group_id = ?";
 
