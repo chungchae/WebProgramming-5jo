@@ -204,10 +204,10 @@
             </div>
         </div>
     </div>
+</div>
     <script>
         const grade = document.getElementById("grade");
         grade.value ="<%=user.getGrade()%>"
     </script>
-
 </body>
 </html>
