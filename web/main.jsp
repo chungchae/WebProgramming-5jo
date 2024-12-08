@@ -11,7 +11,7 @@
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <title>그룹 목록</title>
     <link rel="stylesheet" href="./global.css" />
-    <link rel="stylesheet" href="./groupList.css" />
+    <link rel="stylesheet" href="./groupList.css?after" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400&display=swap" />
 </head>
@@ -70,10 +70,10 @@
             </form>
         </div>
     </div>
-    <div style="padding: 0 60px;">
-    <h2>최신 그룹</h2>
+    <div class="groups-container">
+    <h2 style="width: 100%; margin-left: 50px;">최신 그룹</h2>
 
-<div class="group-container" style="margin-bottom: 40px;">
+<div class="group-container">
     <%
         List<Group> latestGroups = (List<Group>) request.getAttribute("latestGroups");
         if (latestGroups != null && !latestGroups.isEmpty()) {
@@ -82,7 +82,7 @@
     %>
     <a href="<%= request.getContextPath() %>/groupDetail?id=<%= group.getId() %>" class="card">
         <div class="image-area">
-            <img src="<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "placeholder.jpg" %>" alt="" class="card-image">
+            <img src="media/<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "/placeholder.png" %>" alt="" class="card-image">
         </div>
         <div class="info-area">
             <div class="meeting-name"><%= group.getTitle() %></div>
@@ -149,7 +149,7 @@
     %>
 </div>
 
-<h2>운동 그룹</h2>
+        <h2 style="width: 100%; margin-left: 50px;">운동 그룹</h2>
         <div class="group-container" style="margin-bottom: 40px;">
         <%
             List<Group> exerciseGroups = (List<Group>) request.getAttribute("exerciseGroups");
@@ -159,7 +159,7 @@
         %>
         <a href="<%= request.getContextPath() %>/groupDetail?id=<%= group.getId() %>" class="card">
             <div class="image-area">
-                <img src="<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "placeholder.jpg" %>" alt="" class="card-image">
+                <img src="media/<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "/placeholder.png" %>" alt="" class="card-image">
             </div>
             <div class="info-area">
                 <div class="meeting-name"><%= group.getTitle() %></div>
@@ -226,7 +226,7 @@
         %>
     </div>
 
-<h2>공부 그룹</h2>
+        <h2 style="width: 100%; margin-left: 50px;">공부 그룹</h2>
         <div class="group-container" style="margin-bottom: 40px;">
         <%
             List<Group> studyGroups = (List<Group>) request.getAttribute("studyGroups");
@@ -236,7 +236,7 @@
         %>
         <a href="<%= request.getContextPath() %>/groupDetail?id=<%= group.getId() %>" class="card">
             <div class="image-area">
-                <img src="<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "placeholder.jpg" %>" alt="" class="card-image">
+                <img src="media/<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "/placeholder.png" %>" alt="" class="card-image">
             </div>
             <div class="info-area">
                 <div class="meeting-name"><%= group.getTitle() %></div>
