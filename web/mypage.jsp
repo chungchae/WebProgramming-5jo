@@ -80,11 +80,18 @@
         <% if (groups != null && !groups.isEmpty()) { %>
         <% for (Group group : groups) { %>
         <div class="card">
-            <div class="info-area">
-                <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
+            <div class = "info-area">
+            <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
+
                 <div class="meeting-name"><%= group.getTitle() %></div>
-                <div><%= group.getCategory()%></div>
-                <div class="meeting-time">...</div>
+                <div class="image-area">
+                    <img src="<%= group.getImageUrl() %>" alt="" class="card-image">
+                </div>
+                <div class="member-status">
+                    <img class="icon-people" alt="" src="/media/icon-people.png">
+                    <div class="member-status-text"><%= group.getMaxMembers() %>/<%= group.getCurrentMembers() %></div>
+                </div>
+            </a>
             </div>
             <div class="button-area">
                 <form class="button-box-withdrawal" method="post" action="/group/leave">
@@ -92,7 +99,7 @@
                     <button type="submit" class="withdrawal">탈퇴</button>
                 </form>
             </div>
-            </a>
+
         </div>
 
         <% } %>

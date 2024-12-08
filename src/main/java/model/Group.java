@@ -30,10 +30,12 @@ public class Group {
 
     }
 
-    public Group(int id, String title, String imageUrl) {
+    public Group(int id, String title, String imageUrl, int maxMembers, int currentMembers) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
+        this.maxMembers = maxMembers;
+        this.currentMembers = currentMembers;
     }
 
     // Getter와 Setter

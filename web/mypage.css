@@ -360,3 +360,29 @@ form {
 .inputbox:disabled {
     background-color:white;
 }
+
+
+.member-status {
+    text-align: center;
+    width: 600px;
+    height: 32px;
+    margin-top: 5px;
+}
+.member-status-text {
+    font-weight: 300;
+    display: inline-block;
+}
+.icon-people {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    object-fit: cover;
+}
+.image-area {
+    width: 307px;
+    height: 200px;
+    border-radius: 50px 50px 0px 0px;
+}
+.card-image {
+    border-radius: 50px 50px 0px 0px;
+}
