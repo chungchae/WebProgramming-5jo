@@ -73,7 +73,7 @@ public class UserSignUpServlet extends HttpServlet {
 
                 int rows = pstmt.executeUpdate();
                 if (rows > 0) {
-                    out.println("<script>alert('회원가입이 완료되었습니다.'); location.href='/index.jsp';</script>");
+                    out.println("<script>alert('회원가입이 완료되었습니다.'); location.href='/main';</script>");
                 } else {
                     out.println("<script>alert('회원가입에 실패하였습니다. 다시 시도해주세요.'); history.back();</script>");
                 }
