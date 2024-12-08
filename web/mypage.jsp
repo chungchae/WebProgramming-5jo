@@ -82,7 +82,6 @@
         <div class="card">
             <div class = "info-area">
             <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
-
                 <div class="meeting-name"><%= group.getTitle() %></div>
                 <div class="image-area">
                     <img src="<%= group.getImageUrl() %>" alt="" class="card-image">

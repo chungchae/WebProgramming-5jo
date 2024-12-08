@@ -24,6 +24,10 @@ public class MainServlet extends HttpServlet {
 //        Long userId = (Long) session.getAttribute("userId");
 //        String email = (String) session.getAttribute("email");
 
+        HttpSession session = request.getSession();
+        Long userId = (Long) session.getAttribute("userId");
+        String email = (String) session.getAttribute("email");
+
 
         List<Group> latestGroups = groupDAO.findLatestGroups();
         List<Group> exerciseGroups = groupDAO.findGroupsByCategory("운동");
@@ -34,6 +38,10 @@ public class MainServlet extends HttpServlet {
         request.setAttribute("latestGroups", latestGroups);
         request.setAttribute("exerciseGroups", exerciseGroups);
         request.setAttribute("studyGroups", studyGroups);
+        request.setAttribute("userId", userId);
+        request.setAttribute("email", email);
+
+
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/main.jsp");
         dispatcher.forward(request, response);
