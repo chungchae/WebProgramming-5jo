@@ -14,13 +14,14 @@ public class GroupUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
 
         int id = Integer.parseInt(request.getParameter("id"));
         String title = request.getParameter("title");
         String description = request.getParameter("description");
-        String imageUrl = request.getParameter("imageUrl");
+        String imageUrl = "";
         int maxMembers = Integer.parseInt(request.getParameter("maxMembers"));
 
         // 카테고리와 운영 시간 정보 가져오기

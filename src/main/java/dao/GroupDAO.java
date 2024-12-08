@@ -96,7 +96,7 @@ public class GroupDAO {
                 rs.getInt("current_members")
         );
     }
-    private List<Day> getDaysByGroupId(int groupId) {
+    public List<Day> getDaysByGroupId(int groupId) {
         List<Day> days = new ArrayList<>();
         String query = "SELECT * FROM Day WHERE group_id = ?";
 
@@ -357,9 +357,9 @@ public class GroupDAO {
     public boolean updateGroup(int id, String title, String description, String imageUrl, int maxMembers,
                                String[] categories, String[] days, String[] startTimes, String[] endTimes) {
         String updateGroupQuery = "UPDATE group_table SET title = ?, description = ?, image_url = ?, max_members = ? WHERE id = ?";
-        String deleteCategoriesQuery = "DELETE FROM category WHERE group_id = ?";
+        String deleteCategoriesQuery = "DELETE FROM Category WHERE group_id = ?";
         String deleteDaysQuery = "DELETE FROM Day WHERE group_id = ?";
-        String insertCategoryQuery = "INSERT INTO category (group_id, category_name) VALUES (?, ?)";
+        String insertCategoryQuery = "INSERT INTO Category (group_id, category_name) VALUES (?, ?)";
         String insertDayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection()) {
@@ -372,6 +372,7 @@ public class GroupDAO {
                 updateGroupStmt.setString(3, imageUrl);
                 updateGroupStmt.setInt(4, maxMembers);
                 updateGroupStmt.setInt(5, id);
+
                 updateGroupStmt.executeUpdate();
             }
 
