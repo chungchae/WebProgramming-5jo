@@ -71,7 +71,8 @@
         </div>
     </div>
     <div class="groups-container">
-    <h2 style="width: 100%; margin-left: 50px;">최신 그룹</h2>
+    <h2 style="width: 100%; margin-left: 50px;">최신 그룹 <a href="/groupList"><img class="icon-plus" src="/media/icon-plus.png" alt=""></a></h2>
+
 
 <div class="group-container">
     <%

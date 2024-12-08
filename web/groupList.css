@@ -166,3 +166,11 @@
     align-items: center;
     padding: 0 70px;
 }
+
+.icon-plus {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-right: 50px;
+}
