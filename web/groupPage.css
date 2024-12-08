@@ -185,6 +185,20 @@
     height: 35px;
 }
 
+.submit {
+    position: static;
+    margin-top: 6px;
+    margin-left: 20px;
+    display: flex;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    background-color: inherit;
+    border: none;
+    width: 120px;
+    height: 35px;
+}
+
 
 .div {
     position: relative;

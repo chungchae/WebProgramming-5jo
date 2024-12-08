@@ -55,7 +55,7 @@
 			</div>
 		</div>
 	</div>
-	<img src="media/<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "/placeholder.png" %>" alt="" class="card-image">
+	<img src="media/<%= group.getImageUrl() != null ? "group" + group.getId() + ".png" : "/placeholder.png" %>" alt="" class="card-image">
 	<div class="background-under-area"></div>
 	<div class="background">
 		<div class="intro">
@@ -161,10 +161,33 @@
 				<%= description %>
 			</div>
 		</div>
-		<form class="box-button" action="/groupJoin" method="post">
-			<input type="hidden" value="<%= group.getId() %>" name="groupId">
-			<input type="submit" value="모임 가입하기" class="submitbox">
-		</form>
+		<%
+			String statement = (String) request.getAttribute("statement"); // 방장인지 확인
+		%>
+		<div class="box-button">
+			<%
+				if ("방장".equals(statement)) {
+			%>
+			<form action="/groupEdit" method="get" style="display:inline;">
+				<input type="hidden" name="id" value="<%= group.getId() %>">
+				<input type="submit" value="수정하기" class="submit">
+			</form>
+			<form action="/groupDelete" method="get" style="display:inline;">
+				<input type="hidden" name="id" value="<%= group.getId() %>">
+				<input type="submit" value="삭제하기" class="submit">
+			</form>
+			<%
+			} else {
+			%>
+			<form action="/groupJoin" method="post">
+				<input type="hidden" name="groupId" value="<%= group.getId() %>">
+				<input type="submit" value="모임 가입하기" class="submitbox">
+			</form>
+			<%
+				}
+			%>
+		</div>
+
 	</div>
 </div>
 </body>
