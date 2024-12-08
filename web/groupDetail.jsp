@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<link rel="stylesheet" href="global.css" />
-	<link rel="stylesheet" href="groupPage.css" />
+	<link rel="stylesheet" href="groupPage.css?after" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400&display=swap" />
 </head>
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="background-image-area" style="background-image: url('<%= imgUrl != null ? imgUrl : "media/default-group.png" %>');"></div>
+	<img src="media/<%= group.getImageUrl() != null && !group.getImageUrl().isEmpty() ? group.getImageUrl() : "/placeholder.png" %>" alt="" class="card-image">
 	<div class="background-under-area"></div>
 	<div class="background">
 		<div class="intro">
