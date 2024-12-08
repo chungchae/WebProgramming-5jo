@@ -17,8 +17,6 @@
 </head>
 <body>
 <%
-    // 데이터 확인 및 로드
-    List<List> groupList = new ArrayList<>();String sessionId = (String) request.getAttribute("sessionId");
     String sessionEmail = (String) request.getAttribute("email");
 %>
 <div class="div">
@@ -64,9 +62,18 @@
             </div>
         </div>
     </div>
+    <div class="search-group">
+        <div class="search-box">
+            <form method="get" action="<%= request.getContextPath() %>/groupSearch">
+                <input type="text" name="search" id="search" placeholder="모임을 검색해보세요!" />
+                <input type="submit" id="button-search" value="" />
+            </form>
+        </div>
+    </div>
+    <div style="padding: 0 60px;">
+    <h2>최신 그룹</h2>
 
-<h2>최신 그룹</h2>
-<div class="group-container">
+<div class="group-container" style="margin-bottom: 40px;">
     <%
         List<Group> latestGroups = (List<Group>) request.getAttribute("latestGroups");
         if (latestGroups != null && !latestGroups.isEmpty()) {
@@ -143,7 +150,7 @@
 </div>
 
 <h2>운동 그룹</h2>
-    <div class="group-container">
+        <div class="group-container" style="margin-bottom: 40px;">
         <%
             List<Group> exerciseGroups = (List<Group>) request.getAttribute("exerciseGroups");
             if (exerciseGroups != null && !exerciseGroups.isEmpty()) {
@@ -220,7 +227,7 @@
     </div>
 
 <h2>공부 그룹</h2>
-    <div class="group-container">
+        <div class="group-container" style="margin-bottom: 40px;">
         <%
             List<Group> studyGroups = (List<Group>) request.getAttribute("studyGroups");
             if (studyGroups != null && !studyGroups.isEmpty()) {
@@ -294,6 +301,7 @@
         <%
             }
         %>
+    </div>
     </div>
 <%!
     private String getCategoryColor(String category) {
