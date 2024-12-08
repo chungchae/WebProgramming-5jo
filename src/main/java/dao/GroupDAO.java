@@ -184,6 +184,77 @@ public class GroupDAO {
         return groups;
     }
 
+    public int createGroupAndGetId(String title, String description, String imageUrl, int maxMembers,
+                                   String[] categories, String[] days, String[] startTimes, String[] endTimes, Long userId) {
+        String groupQuery = "INSERT INTO group_table (title, description, image_url, max_members, current_members) VALUES (?, ?, ?, ?, ?)";
+        String categoryQuery = "INSERT INTO Category (group_id, category_name) VALUES (?, ?)";
+        String dayQuery = "INSERT INTO Day (group_id, day, start_time, end_time) VALUES (?, ?, ?, ?)";
+        String groupUserQuery = "INSERT INTO GroupUser (group_table_id, user_id, statement) VALUES (?, ?, ?)";
+        int groupId = -1;
+
+        try (Connection conn = DBConnection.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // 그룹 생성
+            try (PreparedStatement groupStmt = conn.prepareStatement(groupQuery, Statement.RETURN_GENERATED_KEYS)) {
+                groupStmt.setString(1, title);
+                groupStmt.setString(2, description);
+                groupStmt.setString(3, imageUrl);
+                groupStmt.setInt(4, maxMembers);
+                groupStmt.setInt(5, 1);
+                groupStmt.executeUpdate();
+
+                ResultSet rs = groupStmt.getGeneratedKeys();
+                if (rs.next()) {
+                    groupId = rs.getInt(1);
+                }
+            }
+
+            // 카테고리 저장
+            if (categories != null) {
+                try (PreparedStatement categoryStmt = conn.prepareStatement(categoryQuery)) {
+                    for (String category : categories) {
+                        if (!category.isEmpty()) {
+                            categoryStmt.setInt(1, groupId);
+                            categoryStmt.setString(2, category);
+                            categoryStmt.addBatch();
+                        }
+                    }
+                    categoryStmt.executeBatch();
+                }
+            }
+
+            // 운영 시간 저장
+            if (days != null && startTimes != null && endTimes != null) {
+                try (PreparedStatement dayStmt = conn.prepareStatement(dayQuery)) {
+                    for (int i = 0; i < days.length; i++) {
+                        dayStmt.setInt(1, groupId);
+                        dayStmt.setString(2, days[i]);
+                        dayStmt.setString(3, startTimes[i]);
+                        dayStmt.setString(4, endTimes[i]);
+                        dayStmt.addBatch();
+                    }
+                    dayStmt.executeBatch();
+                }
+            }
+
+            // GroupUser에 리더로 등록
+            try (PreparedStatement groupUserStmt = conn.prepareStatement(groupUserQuery)) {
+                groupUserStmt.setInt(1, groupId);
+                groupUserStmt.setLong(2, userId);
+                groupUserStmt.setString(3, "방장"); // statement 필드를 "leader"로 설정
+                groupUserStmt.executeUpdate();
+            }
+
+            conn.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // 에러 발생 시 -1 반환
+        }
+        return groupId; // 생성된 groupId 반환
+    }
+
+
 
     public boolean createGroup(String title, String description, String imageUrl, int maxMembers,
                                String[] categories, String[] days, String[] startTimes, String[] endTimes, Long userId) {

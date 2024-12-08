@@ -53,7 +53,7 @@
       <img class="check-icon" alt="" src="<%= request.getContextPath() %>/media/icon-check.png">
       <div class="intro-text">모임 정보 입력</div>
     </div>
-    <form method="post" action="<%= request.getContextPath() %>/groupCreate" onsubmit="return checkForm()">
+    <form method="post" action="<%= request.getContextPath() %>/groupCreate" enctype="multipart/form-data">
       <div class="input-field">
         <div class="input-kind">모임 이름</div>
         <div class="box1">
