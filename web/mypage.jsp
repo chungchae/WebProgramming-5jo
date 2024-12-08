@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <link rel="stylesheet" href="/global.css"/>
-    <link rel="stylesheet" href="/mypage.css"/>
+    <link rel="stylesheet" href="/mypage.css?after"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend Deca:wght@400&display=swap" />
     <script src="/mypage.js"></script>
@@ -80,18 +80,13 @@
         <% if (groups != null && !groups.isEmpty()) { %>
         <% for (Group group : groups) { %>
         <div class="card">
-            <div class = "info-area">
             <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
                 <div class="meeting-name"><%= group.getTitle() %></div>
-                <div class="image-area">
-                    <img src="<%= group.getImageUrl() %>" alt="" class="card-image">
-                </div>
                 <div class="member-status">
                     <img class="icon-people" alt="" src="/media/icon-people.png">
                     <div class="member-status-text"><%= group.getMaxMembers() %>/<%= group.getCurrentMembers() %></div>
                 </div>
             </a>
-            </div>
             <div class="button-area">
                 <form class="button-box-withdrawal" method="post" action="/group/leave">
                     <input type="hidden" name="groupId" value="<%=group.getId() %>">

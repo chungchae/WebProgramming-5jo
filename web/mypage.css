@@ -1,7 +1,7 @@
 .section-profile {
-    background-color: #EBE8E8;
+    background-color: white;
     border-radius: 50px;
-    width: 1250px;
+    width: 1100px;
     margin: 30px auto;
     padding: 30px 40px;
     display: flex;
@@ -9,8 +9,8 @@
     justify-content: space-between;
 }
 #profile-image {
-    width: 150px;
-    height: 150px;
+    width: 270px;
+    height: 270px;
     border-radius: 50%;
     margin-right: 30px;
 }
@@ -73,14 +73,13 @@
 }
 .section-title {
     text-align: left;
-    font-weight: 600;
     font-size: 24px;
 }
 .card {
     display: inline-block;
     background-color: white;
-    width: 307px;
-    height: 340px;
+    width: 270px;
+    height: 130px;
     margin-top: 20px;
     margin-right: 25px;
     border-radius: 50px;
@@ -91,7 +90,12 @@
     border-radius: 50px 50px 0px 0px;
 }
 .card-image {
+    position: relative;
+    display: flex;
+    width: 100%; /* 부모 요소 크기에 맞게 설정 */
+    height: 100%; /* 부모 요소 크기에 맞게 설정 */
     border-radius: 50px 50px 0px 0px;
+    object-fit: cover; /* 이미지를 카드 크기에 맞게 자름 */
 }
 .info-area{
     width: 307px;
@@ -101,9 +105,6 @@
     margin-top: 10px;
     font-size: 18px;
     font-weight: 600;
-}
-.member-status {
-    margin-top: 5px;
 }
 .member-status-text {
     font-weight: 300;
@@ -364,7 +365,6 @@ form {
 
 .member-status {
     text-align: center;
-    width: 600px;
     height: 32px;
     margin-top: 5px;
 }
@@ -385,4 +385,8 @@ form {
 }
 .card-image {
     border-radius: 50px 50px 0px 0px;
+}
+
+.meeting-name {
+    text-align: center;
 }
