@@ -16,7 +16,7 @@
     <div class="header">
         <div class="container">
             <div class="web-logo">
-                <a href="/main">
+                <a href="<%= request.getContextPath() %>/main">
                     <img class="logo" alt="" src="media/Icon.svg">
                     <div class="logo-text">Project</div>
                 </a>

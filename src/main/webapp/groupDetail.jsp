@@ -37,19 +37,19 @@
 			<div class="nav">
 				<div class="haeding-name">
 					<div class="nav-component">
-						<div class="label"><a href="/groupCreate">새 모임 만들기</a></div>
+						<div class="label"><a href="<%= request.getContextPath() %>/groupCreate">새 모임 만들기</a></div>
 					</div>
 					<div class="nav-component">
-						<div class="label"><a href="/main">모임 둘러보기</a></div>
+						<div class="label"><a href="<%= request.getContextPath() %>/main">모임 둘러보기</a></div>
 					</div>
 					<div class="nav-component">
-						<div class="label"><a href="/user/mypage">마이페이지</a></div>
+						<div class="label"><a href="<%= request.getContextPath() %>/user/mypage">마이페이지</a></div>
 					</div>
 					<div class="nav-component logout">
-						<a href="/user/logout"><div class="label">로그아웃</div></a>
+						<a href="<%= request.getContextPath() %>/user/logout"><div class="label">로그아웃</div></a>
 					</div>
 					<div class="nav-component">
-						<a href="/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
+						<a href="<%= request.getContextPath() %>/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
 					</div>
 				</div>
 			</div>
@@ -168,18 +168,18 @@
 			<%
 				if ("방장".equals(statement)) {
 			%>
-			<form action="/groupEdit" method="get" style="display:inline;">
+			<form action="<%= request.getContextPath() %>/groupEdit" method="get" style="display:inline;">
 				<input type="hidden" name="id" value="<%= group.getId() %>">
 				<input type="submit" value="수정하기" class="submit">
 			</form>
-			<form action="/groupDelete" method="get" style="display:inline;">
+			<form action="<%= request.getContextPath() %>/groupDelete" method="get" style="display:inline;">
 				<input type="hidden" name="id" value="<%= group.getId() %>">
 				<input type="submit" value="삭제하기" class="submit">
 			</form>
 			<%
 			} else {
 			%>
-			<form action="/groupJoin" method="post">
+			<form action="<%= request.getContextPath() %>/groupJoin" method="post">
 				<input type="hidden" name="groupId" value="<%= group.getId() %>">
 				<input type="submit" value="모임 가입하기" class="submitbox">
 			</form>

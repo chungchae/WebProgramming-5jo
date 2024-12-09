@@ -30,19 +30,19 @@
             </a>
             <div class="nav">
                 <div class="nav-component">
-                    <div class="label"><a href="/groupCreate.jsp">새 모임 만들기</a></div>
+                    <div class="label"><a href="<%= request.getContextPath() %>/groupCreate.jsp">새 모임 만들기</a></div>
                 </div>
                 <div class="nav-component">
-                    <div class="label"><a href="/main">모임 둘러보기</a></div>
+                    <div class="label"><a href="<%= request.getContextPath() %>/main">모임 둘러보기</a></div>
                 </div>
                 <div class="nav-component">
-                    <div class="label"><a href="/user/mypage">마이페이지</a></div>
+                    <div class="label"><a href="<%= request.getContextPath() %>/user/mypage">마이페이지</a></div>
                 </div>
                 <%
                     if(sessionEmail==null){
                 %>
                 <div class="nav-component">
-                    <a href="/login.jsp"><div class="label">로그인</div></a>
+                    <a href="<%= request.getContextPath() %>/login.jsp"><div class="label">로그인</div></a>
                 </div>
                 <%
                     }
@@ -51,13 +51,13 @@
                     if(sessionEmail!=null){
                 %>
                 <div class="nav-component">
-                    <a href="/user/logout"><div class="label">로그아웃</div></a>
+                    <a href="<%= request.getContextPath() %>/user/logout"><div class="label">로그아웃</div></a>
                 </div>
                 <%
                     }
                 %>
                 <div class="nav-component">
-                    <a href="/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
+                    <a href="<%= request.getContextPath() %>/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
         </div>
     </div>
     <div class="groups-container">
-    <h2 style="width: 100%; margin-left: 50px;">최신 그룹 <a href="/groupList"><img class="icon-plus" src="/media/icon-plus.png" alt=""></a></h2>
+    <h2 style="width: 100%; margin-left: 50px;">최신 그룹 <a href="<%= request.getContextPath() %>/groupList"><img class="icon-plus" src="${pageContext.request.contextPath}/media/icon-plus.png" alt=""></a></h2>
 
 
 <div class="group-container">

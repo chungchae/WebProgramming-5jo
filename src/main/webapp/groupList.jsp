@@ -27,19 +27,19 @@
 			<div class="nav">
 				<div class="haeding-name">
 					<div class="nav-component">
-						<div class="label"><a href="/groupCreate">새 모임 만들기</a></div>
+						<div class="label"><a href="<%= request.getContextPath() %>/groupCreate">새 모임 만들기</a></div>
 					</div>
 					<div class="nav-component">
-						<div class="label"><a href="/main">모임 둘러보기</a></div>
+						<div class="label"><a href="<%= request.getContextPath() %>/main">모임 둘러보기</a></div>
 					</div>
 					<div class="nav-component">
-						<div class="label"><a href="/user/mypage">마이페이지</a></div>
+						<div class="label"><a href="<%= request.getContextPath() %>/user/mypage">마이페이지</a></div>
 					</div>
 					<div class="nav-component logout">
-						<a href="/user/logout"><div class="label">로그아웃</div></a>
+						<a href="<%= request.getContextPath() %>/user/logout"><div class="label">로그아웃</div></a>
 					</div>
 					<div class="nav-component">
-						<a href="/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
+						<a href="<%= request.getContextPath() %>/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
 					</div>
 				</div>
 			</div>
