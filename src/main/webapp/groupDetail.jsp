@@ -7,8 +7,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
-	<link rel="stylesheet" href="global.css" />
-	<link rel="stylesheet" href="groupPage.css?after" />
+	<link rel="stylesheet" href="css/global.css" />
+	<link rel="stylesheet" href="css/groupPage.css?after" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400&display=swap" />
 </head>

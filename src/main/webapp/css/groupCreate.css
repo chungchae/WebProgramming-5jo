@@ -186,7 +186,7 @@
 }
 .plus-button {
     display: inline-block;
-    background-image: url('media/icon-plus2.png');
+    background-image: url('../media/icon-plus2.png');
     border: none;
     background-color: transparent;
     margin-right: 65px;

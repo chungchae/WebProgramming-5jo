@@ -9,8 +9,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title style="color: black;">그룹 수정</title>
-  <link rel="stylesheet" href="./global.css" />
-  <link rel="stylesheet" href="/groupCreate.css?after">
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="/css/groupCreate.css?after">
 </head>
 <body>
 

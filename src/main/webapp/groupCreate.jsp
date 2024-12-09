@@ -7,8 +7,8 @@
   <meta name="viewport" content="initial-scale=1, width=device-width">
 
   <!-- 외부 CSS 파일 불러오기 -->
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/global.css" />
-  <link rel="stylesheet" href="<%= request.getContextPath() %>/groupCreate.css" />
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/global.css" />
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/css/groupCreate.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400&display=swap" />
 </head>

@@ -10,8 +10,8 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="initial-scale=1, width=device-width">
 	<title>그룹 목록</title>
-	<link rel="stylesheet" href="./global.css" />
-	<link rel="stylesheet" href="./groupList.css?after" />
+	<link rel="stylesheet" href="css/global.css" />
+	<link rel="stylesheet" href="css/groupList.css?after" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400&display=swap" />
 </head>

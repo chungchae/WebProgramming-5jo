@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
     <title>로그인</title>
-    <link rel="stylesheet"  href="./global.css" />
-    <link rel="stylesheet"  href="./login.css" />
+    <link rel="stylesheet"  href="css/global.css" />
+    <link rel="stylesheet"  href="css/login.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend Deca:wght@400&display=swap" />
 </head>
@@ -61,7 +61,7 @@
             <div class="remember-account">
                 <input type="checkbox" name="remember" class="checkbox">
                 <div class="remember-account-text">회원정보 기억하기</div>
-                <a href="./signup.jsp" class="signup-link">회원가입</a>
+                <a href="signup.jsp" class="signup-link">회원가입</a>
             </div>
 
             <div class="input-box-submit">

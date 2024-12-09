@@ -212,7 +212,7 @@
 }
 
 #modalCloseButton {
-    background-image: url("media/icon-close.png");
+    background-image: url("../media/icon-close.png");
     margin-left: 870px;
     width: 25px;
     height: 25px;
