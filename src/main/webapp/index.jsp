@@ -29,14 +29,36 @@
 				</div>
 			</a>
 			<div class="nav">
+			<%
+				if (sessionEmail != null) {
+			%>
 				<div class="nav-component">
+			<%
+				} else {
+			%>
+				<div class="nav-component" style="visibility: hidden;">
+			<%
+				}
+			%>
 					<div class="label"><a href="/groupCreate.jsp">새 모임 만들기</a></div>
 				</div>
 				<div class="nav-component">
 					<div class="label"><a href="/main">모임 둘러보기</a></div>
 				</div>
 				<div class="nav-component">
-					<div class="label"><a href="/user/mypage">마이페이지</a></div>
+					<div class="label">
+				<%
+					if (sessionEmail != null) {
+				%>
+						<a href="/user/mypage">마이페이지</a></div>
+				<%
+					} else { 
+				%>
+						<a href="/signup.jsp">회원가입</a></div>
+				<%
+					}
+				%>
+				
 				</div>
 				<%
 					if(sessionEmail==null){
@@ -70,11 +92,16 @@
 			</form>
 		</div>
 	</div>
-	<div class="groups-container">
-		<h2 style="width: 100%; margin-left: 50px;">최신 그룹 <a href="/groupList"><img class="icon-plus" src="/media/icon-plus.png" alt=""></a></h2>
+	<div class="groups-container" style="margin-top: 50px;">
+    
+<div class="group-wrapper" style="width: 1325px; text-align:center;">
+    <h2 style="width: 270px; text-align: left; display:inline-block; margin-left: 50px; ">최신 그룹</h2>
+    	<div style="width: 1000px; display: inline-block; text-align: right;">
+    	<a href="<%= request.getContextPath() %>/groupList">
+    	<img class="icon-plus" src="${pageContext.request.contextPath}/media/icon-plus.png" alt=""></a>
+    	</div>
 
-
-		<div class="group-container">
+		<div class="group-container" style="margin-bottom: 40px;">
 			<%
 				List<Group> latestGroups = (List<Group>) request.getAttribute("latestGroups");
 				if (latestGroups != null && !latestGroups.isEmpty()) {
@@ -144,13 +171,14 @@
 				}
 			} else {
 			%>
-			<p class="no-groups">등록된 최신 그룹이 없습니다.</p>
+			<div class="no-groups" style="margin-left: 50px;">등록된 최신 그룹이 없습니다.</div>
 			<%
 				}
 			%>
-		</div>
+		</div></div>
 
-		<h2 style="width: 100%; margin-left: 50px;">운동 그룹</h2>
+<div class="group-wrapper" style="width: 1325px; text-align:center;">
+    <h2 style="width: 1325px; text-align: left; margin-left: 50px; ">운동 그룹</h2>
 		<div class="group-container" style="margin-bottom: 40px;">
 			<%
 				List<Group> exerciseGroups = (List<Group>) request.getAttribute("exerciseGroups");
@@ -221,13 +249,13 @@
 				}
 			} else {
 			%>
-			<p class="no-groups">등록된 최신 그룹이 없습니다.</p>
+			<div class="no-groups" style="margin-left: 50px;">등록된 최신 그룹이 없습니다.</div>
 			<%
 				}
 			%>
-		</div>
-
-		<h2 style="width: 100%; margin-left: 50px;">공부 그룹</h2>
+		</div></div>
+<div class="group-wrapper" style="width: 1325px; text-align:center;">
+    <h2 style="width: 1325px; text-align: left; margin-left: 50px; ">공부 그룹</h2>
 		<div class="group-container" style="margin-bottom: 40px;">
 			<%
 				List<Group> studyGroups = (List<Group>) request.getAttribute("studyGroups");
@@ -298,11 +326,11 @@
 				}
 			} else {
 			%>
-			<p class="no-groups">등록된 최신 그룹이 없습니다.</p>
+			<div class="no-groups" style="margin-left: 50px;">등록된 최신 그룹이 없습니다.</div>
 			<%
 				}
 			%>
-		</div>
+		</div></div>
 	</div>
 		<%!
     private String getCategoryColor(String category) {
