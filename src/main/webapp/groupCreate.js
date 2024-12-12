@@ -72,21 +72,20 @@ function addDay() {
 
     const div = document.createElement("div");
     div.innerHTML = `
-      <label>요일:</label>
-      <select name="days[]" class="selectbox" required>
-        <option disabled selected hidden>요일</option>
-        <option value="월">월</option>
-        <option value="화">화</option>
-        <option value="수">수</option>
-        <option value="목">목</option>
-        <option value="금">금</option>
-        <option value="토">토</option>
-        <option value="일">일</option>
-      </select>
-      <label>시작 시간:</label>
-      <input type="time" name="startTimes[]" required>
-      <label>종료 시간:</label>
-      <input type="time" name="endTimes[]" required>
+	<select name="days[]" class="selectbox" required style="display: inline-block;">
+	    <option disabled selected hidden>요일</option>
+	    <option value="월">월</option>
+	    <option value="화">화</option>
+	    <option value="수">수</option>
+	    <option value="목">목</option>
+	    <option value="금">금</option>
+	    <option value="토">토</option>
+	    <option value="일">일</option>
+	  </select>
+	  <div style="display: inline-block; margin-left: 10px;">모임 시간:
+	  <input type="time" class="timebox" name="startTimes[]" required>
+	   ~
+	  <input type="time" class="timebox" name="endTimes[]" required></div>
       <button type="button" onclick="this.parentElement.remove(); dayCount--; checkDayCount();">삭제</button>
     `;
     container.appendChild(div);
