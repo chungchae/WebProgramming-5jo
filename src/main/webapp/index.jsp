@@ -35,7 +35,7 @@
   	<div class="div">
 		<div class="header">
 			<div class="container">
-				<a href="/main">
+				<a href="webp/main">
 				<div class="web-logo">
 					<img class="logo" alt="" src="media/Icon.svg">
 					<div class="logo-text">Project</div>
@@ -43,13 +43,13 @@
 				<div class="nav">
 					<div class="haeding-name">
 						<div class="nav-component">
-							<div class="label"><a href="/groupCreate">새 모임 만들기</a></div>
+							<div class="label"><a href="webp/groupCreate">새 모임 만들기</a></div>
 						</div>
 						<div class="nav-component">
-							<div class="label"><a href="/main">모임 둘러보기</a></div>
+							<div class="label"><a href="webp/main">모임 둘러보기</a></div>
 						</div>
 						<div class="nav-component">
-							<div class="label"><a href="/user/mypage">마이페이지</a></div>
+							<div class="label"><a href="webp/user/mypage">마이페이지</a></div>
 						</div>
 						<div class="nav-component" class="logout">
 							<a href="/user/logout"><div class="label">로그아웃</div></a>
