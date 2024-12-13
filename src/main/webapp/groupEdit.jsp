@@ -10,9 +10,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title style="color: black;">그룹 수정</title>
   <link rel="stylesheet" href="css/global.css" />
-  <link rel="stylesheet" href="/css/groupCreate.css?after">
+  <link rel="stylesheet" href="css/groupCreate.css?after">
 </head>
-<body>
+<body style="margin-bottom: 150px;">
 
 <div class="div">
   <%
@@ -75,14 +75,14 @@
       </div>
 
       <div class="input-field days">
-        <div class="input-kind">모임 시간
-          <button type="button" class="plus-button" onclick="addDay()" style="margin-left:425px; height: 25px;"></button>
+        <div class="input-kind" style="inline-block;">모임 시간
+        <button type="button" class="plus-button" onclick="addDay()" style="margin-left:425px; margin-right: 0px; height: 25px;"></button>
         </div>
-        <div id="daysContainer" style="margin-left: 25px; width: 600px;">
+        <div id="daysContainer" style="text-align: left; margin-left: 25px; width: 600px;">
           <% if (days != null && !days.isEmpty()) { %>
           <% for (Day day : days) { %>
           <div class="day-field">
-            <select name="days[]" class="selectbox" required>
+            <select name="days[]" class="selectbox" required style="display: inline-block;">
               <option value="월" <%= "월".equals(day.getDay()) ? "selected" : "" %>>월</option>
               <option value="화" <%= "화".equals(day.getDay()) ? "selected" : "" %>>화</option>
               <option value="수" <%= "수".equals(day.getDay()) ? "selected" : "" %>>수</option>
@@ -91,25 +91,25 @@
               <option value="토" <%= "토".equals(day.getDay()) ? "selected" : "" %>>토</option>
               <option value="일" <%= "일".equals(day.getDay()) ? "selected" : "" %>>일</option>
             </select>
-            <div style="display: inline-block; margin-left: 10px;">
-              <input type="time" class="timebox" name="startTimes[]" value="<%= day.getStartTime() %>" required>
-              ~
-              <input type="time" class="timebox" name="endTimes[]" value="<%= day.getEndTime() %>" required>
-            </div>
+            <div style="display: inline-block; margin-left: 10px;">모임 시간:
+            <input type="time" class="timebox" name="startTimes[]" required>
+            ~
+            <input type="time" class="timebox" name="endTimes[]" required></div>
             <button type="button" onclick="this.parentElement.remove()" class="delete-day-button">삭제</button>
           </div>
-          <% } %>
-          <% } %>
+          
+        <% } %>
+        <% } %>
         </div>
       </div>
 
       <div class="input-field">
         <div class="input-kind">태그(최대 3개)</div>
         <div class="wrapper">
-          <% for (int i = 0; i < 3; i++) { %>
+          <% for (int i = 1; i <= 3; i++) { %>
           <div class="box2">
             <select name="categories[]" class="selectbox tags">
-              <option value="" <%= categories != null && categories.size() > i ? "" : "selected" %>>태그 선택</option>
+              <option value="" <%= categories != null && categories.size() > i ? "" : "selected" %>>태그 <%=i %></option>
               <option value="운동" <%= categories != null && categories.contains("운동") && categories.indexOf("운동") == i ? "selected" : "" %>>운동</option>
               <option value="공부" <%= categories != null && categories.contains("공부") && categories.indexOf("공부") == i ? "selected" : "" %>>공부</option>
               <option value="자유" <%= categories != null && categories.contains("자유") && categories.indexOf("자유") == i ? "selected" : "" %>>자유</option>
@@ -148,7 +148,7 @@
     const div = document.createElement('div');
     div.className = 'day-field';
     div.innerHTML = `
-      <select name="days[]" class="selectbox" required>
+      <select name="days[]" class="selectbox" required style="display:inline-block">
         <option value="월">월</option>
         <option value="화">화</option>
         <option value="수">수</option>
@@ -157,7 +157,7 @@
         <option value="토">토</option>
         <option value="일">일</option>
       </select>
-      <div style="display: inline-block; margin-left: 10px;">
+      <div style="display: inline-block; margin-left: 10px;">모임 시간:
         <input type="time" class="timebox" name="startTimes[]" required>
         ~
         <input type="time" class="timebox" name="endTimes[]" required>
