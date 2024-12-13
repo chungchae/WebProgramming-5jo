@@ -164,29 +164,37 @@
 		<%
 			String statement = (String) request.getAttribute("statement"); // 방장인지 확인
 		%>
-		<div class="box-button">
+		
 			<%
 				if ("방장".equals(statement)) {
 			%>
-			<form action="<%= request.getContextPath() %>/groupEdit" method="get" style="display:inline;">
+			<div class="button-area">
+			<div class="small-box-button" style="background-color: #33b4ff;">
+				<form action="<%= request.getContextPath() %>/groupEdit" method="get">
 				<input type="hidden" name="id" value="<%= group.getId() %>">
 				<input type="submit" value="수정하기" class="submit">
-			</form>
-			<form action="<%= request.getContextPath() %>/groupDelete" method="get" style="display:inline;">
+				</form>
+			</div>
+			<div class="small-box-button" style="background-color: #FF709E;">
+				<form action="<%= request.getContextPath() %>/groupDelete" method="get" style="display:inline;">
 				<input type="hidden" name="id" value="<%= group.getId() %>">
 				<input type="submit" value="삭제하기" class="submit">
-			</form>
+				</form>
+			</div>
+			</div>
 			<%
 			} else {
 			%>
-			<form action="<%= request.getContextPath() %>/groupJoin" method="post">
+			<div class="box-button">
+				<form action="<%= request.getContextPath() %>/groupJoin" method="post">
 				<input type="hidden" name="groupId" value="<%= group.getId() %>">
 				<input type="submit" value="모임 가입하기" class="submitbox">
-			</form>
+				</form>
+			</div>
 			<%
 				}
 			%>
-		</div>
+
 
 	</div>
 </div>
