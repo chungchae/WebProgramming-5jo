@@ -15,32 +15,69 @@
 <body>
 <%
 	List<Group> groups = (List<Group>) request.getAttribute("groups");
+	String sessionEmail = (String) session.getAttribute("email");
 %>
 <div class="div">
 	<div class="header">
 		<div class="container">
-			<a href="webp/main">
+			<a href="/main">
 				<div class="web-logo">
 					<img class="logo" alt="" src="media/Icon.svg">
 					<div class="logo-text">Project</div>
-				</div></a>
+				</div>
+			</a>
 			<div class="nav">
-				<div class="haeding-name">
-					<div class="nav-component">
-						<div class="label"><a href="<%= request.getContextPath() %>/groupCreate">새 모임 만들기</a></div>
-					</div>
-					<div class="nav-component">
-						<div class="label"><a href="<%= request.getContextPath() %>/main">모임 둘러보기</a></div>
-					</div>
-					<div class="nav-component">
-						<div class="label"><a href="<%= request.getContextPath() %>/user/mypage">마이페이지</a></div>
-					</div>
-					<div class="nav-component logout">
-						<a href="<%= request.getContextPath() %>/user/logout"><div class="label">로그아웃</div></a>
-					</div>
-					<div class="nav-component">
-						<a href="<%= request.getContextPath() %>/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
-					</div>
+			<%
+				if (sessionEmail != null) {
+			%>
+				<div class="nav-component">
+			<%
+				} else {
+			%>
+				<div class="nav-component" style="visibility: hidden;">
+			<%
+				}
+			%>
+					<div class="label"><a href="/groupCreate.jsp">새 모임 만들기</a></div>
+				</div>
+				<div class="nav-component">
+					<div class="label"><a href="/main">모임 둘러보기</a></div>
+				</div>
+				<div class="nav-component">
+					<div class="label">
+				<%
+					if (sessionEmail != null) {
+				%>
+						<a href="/user/mypage">마이페이지</a></div>
+				<%
+					} else { 
+				%>
+						<a href="/signup.jsp">회원가입</a></div>
+				<%
+					}
+				%>
+				
+				</div>
+				<%
+					if(sessionEmail==null){
+				%>
+				<div class="nav-component">
+					<a href="/login.jsp"><div class="label">로그인</div></a>
+				</div>
+				<%
+					}
+				%>
+				<%
+					if(sessionEmail!=null){
+				%>
+				<div class="nav-component">
+					<a href="/user/logout"><div class="label">로그아웃</div></a>
+				</div>
+				<%
+					}
+				%>
+				<div class="nav-component">
+					<a href="/user/mypage"><img class="icon-profile" alt="" src="media/icon-profile.png"></a>
 				</div>
 			</div>
 		</div>
