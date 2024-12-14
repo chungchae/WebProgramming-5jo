@@ -31,15 +31,17 @@ function checkPw() {
     }
 }
 function formCheck() {
-    var sel = document.getElementById("grade");
-    var grade = sel.selectedIndex;
-
+    var sel1 = document.getElementById("grade");
+	var sel2 = document.getElementById("emailDomain");
+    var grade = sel1.selectedIndex;
+	var domain = sel2.selectedIndex;
+	
     if (isValidPw() == false || checkPw() == false) {
         alert("비밀번호를 확인하세요");
         return false;
     }
 
-    if (grade == 0) {
+    if (grade == 0 || domain == 0) {
         alert("모든 항목을 입력해주세요")
         return false;
     }

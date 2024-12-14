@@ -51,7 +51,7 @@
                     <div class="box">
                     <input type="text" class="mailbox" name="email" required placeholder="이메일"/>
                     <div style="margin-top: 7px; display: inline-block;">&nbsp;@</div>
-                    <select name="emailDomain" required class="mailbox" required>
+                    <select name="emailDomain" class="mailbox" id="emailDomain" style="width: 150px; height: 35px;" required>
                     	<option disabled hidden selected>선택하세요</option>
                     	<option value="naver.com">naver.com</option>
                     	<option value="gmail.com">gmail.com</option>
