@@ -6,8 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width">
-    <link rel="stylesheet" href="/css/global.css"/>
-    <link rel="stylesheet" href="/css/mypage.css?after"/>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/mypage.css?after"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;800&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend Deca:wght@400&display=swap" />
     <script src="/mypage.js"></script>
@@ -24,7 +24,7 @@
         <div class="container">
             <a href="/main">
                 <div class="web-logo">
-                    <img class="logo" alt="" src="/media/Icon.svg">
+                    <img class="logo" alt="" src="../media/Icon.svg">
                     <div class="logo-text">Project</div>
                 </div>
             </a>
@@ -43,7 +43,7 @@
                         <a href="<%= request.getContextPath() %>/user/logout"><div class="label">로그아웃</div></a>
                     </div>
                     <div class="nav-component">
-                        <a href="<%= request.getContextPath() %>/user/mypage"><img class="icon-profile" alt="" src="/media/icon-profile.png"></a>
+                        <a href="<%= request.getContextPath() %>/user/mypage"><img class="icon-profile" alt="" src="../media/icon-profile.png"></a>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <td colspan="2" class="blank"><div id="button-box-modify"><button type="button" id="button-modify" onclick="modalOpen()">수정</button></div></td>
             </tr>
             <tr>
-                <td rowspan="3"><img id="profile-image" src="/media/profile-image.png"></td>
+                <td rowspan="3"><img id="profile-image" src="../media/profile-default.jpg"></td>
                 <td id="name"><%= user.getName() %></td>
             </tr>
             <tr>
@@ -83,7 +83,7 @@
             <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
                 <div class="meeting-name"><%= group.getTitle() %></div>
                 <div class="member-status">
-                    <img class="icon-people" alt="" src="/media/icon-people.png">
+                    <img class="icon-people" alt="" src="../media/icon-people.png">
                     <div class="member-status-text"><%= group.getMaxMembers() %>/<%= group.getCurrentMembers() %></div>
                 </div>
             </a>
