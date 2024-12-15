@@ -513,4 +513,33 @@ public class GroupDAO {
         return null; // statement가 없으면 null 반환
     }
 
+    public List<Group> searchGroupsByTitle(String title) {
+        List<Group> groups = new ArrayList<>();
+        String query = "SELECT * FROM group_table WHERE title LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setString(1, "%" + title + "%");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Group group = new Group(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        null, // 카테고리 설정은 별도로
+                        rs.getString("description"),
+                        rs.getString("image_url"),
+                        rs.getInt("max_members"),
+                        rs.getInt("current_members")
+                );
+                group.setDays(getDaysByGroupId(group.getId()));
+                group.setCategories(getCategoriesByGroupId(group.getId()));
+                groups.add(group);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return groups;
+    }
+
 }

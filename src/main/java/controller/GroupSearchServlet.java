@@ -1,29 +1,35 @@
 package controller;
 
 import dao.GroupDAO;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 import model.Group;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/groupSearch")
 public class GroupSearchServlet extends HttpServlet {
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String groupType = request.getParameter("groupType");
-        String groupName = request.getParameter("groupName");
+        // 검색어 가져오기
+        String searchQuery = request.getParameter("search");
 
+        // DAO 호출
         GroupDAO groupDAO = new GroupDAO();
-        List<Group> groups = groupDAO.findGroups(groupType, groupName);
+        List<Group> searchResults = groupDAO.searchGroupsByTitle(searchQuery);
 
-        // 결과를 JSP로 전달
-        request.setAttribute("groups", groups);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/groupResult.jsp");
+        // 검색 결과와 검색어를 JSP로 전달
+        request.setAttribute("searchResults", searchResults);
+        request.setAttribute("searchQuery", searchQuery);
+
+        // JSP로 포워딩
+        RequestDispatcher dispatcher = request.getRequestDispatcher("groupSearch.jsp");
         dispatcher.forward(request, response);
     }
 }
