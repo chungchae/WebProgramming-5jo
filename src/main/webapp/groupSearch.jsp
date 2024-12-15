@@ -91,55 +91,84 @@
             </form>
         </div>
     </div>
-    <div class="card-set">
-        <h2 style="margin-left: 50px;">검색 결과: "<%= searchQuery %>"</h2>
-        <%
-            if (searchResults != null && !searchResults.isEmpty()) {
-                for (Group group : searchResults) {
-        %>
-        <a href="<%= request.getContextPath() %>/groupDetail?id=<%= group.getId() %>" class="card">
-            <div class="image-area">
-                <img src="<%= request.getContextPath() %>/media/<%= group.getImageUrl() != null ? "group" + group.getId() + ".png" : "placeholder.png" %>" alt="" class="card-image">
-            </div>
-            <div class="info-area">
-                <div class="meeting-name"><%= group.getTitle() %></div>
-                <div class="member-status">
-                    <img class="icon-people" alt="" src="<%= request.getContextPath() %>/media/icon-people.png">
-                    <div class="member-status-text"><%= group.getCurrentMembers() %>/<%= group.getMaxMembers() %></div>
-                </div>
-                <div class="meeting-time">
-                    <%
-                        List<Day> days = group.getDays();
-                        for (Day day : days) {
-                            out.print(day.getDay() + " " + day.getStartTime() + "~" + day.getEndTime() + ", ");
-                        }
-                    %>
-                </div>
-            </div>
-            <div class="tag-area">
-                <%
-                    List<Category> categories = group.getCategories();
-                    for (Category category : categories) {
-                %>
-                <div class="tag">
-                    <div class="tag-box" style="background-color: <%= getCategoryColor(category.getCategoryName()) %>;">
-                        <div class="tag-text"><%= category.getCategoryName() %></div>
-                    </div>
-                </div>
-                <%
-                    }
-                %>
-            </div>
-        </a>
-        <%
-            }
-        } else {
-        %>
-        <div class="no-groups">검색 결과가 없습니다.</div>
-        <%
-            }
-        %>
-    </div>
+    
+    <div class="section-group">
+		<div class="category-name">검색 결과: "<%= searchQuery %>"</div>
+		<%
+			int groupCnt = 0;
+			for (Group group : searchResults) {
+				if (groupCnt % 4 == 0) {
+		%>
+		<div class="card-set" style="width: 1350px;">
+			<%
+				}
+			%>
+			<a href="<%= request.getContextPath() %>/groupDetail?id=<%= group.getId() %>">
+				<div class="card">
+					<div class="image-area">
+						<img src="media/<%= group.getImageUrl() != null ? "group" + group.getId() + ".png" : "/placeholder.png" %>" alt="" class="card-image">
+					</div>
+					<div class="info-area">
+						<div class="meeting-name"><%= group.getTitle() %></div>
+						<div class="member-status">
+							<img class="icon-people" alt="" src="media/icon-people.png">
+							<div class="member-status-text"><%= group.getCurrentMembers() %>/<%= group.getMaxMembers() %></div>
+						</div>
+						<div class="meeting-time">
+							<%
+								int dayCnt = 0;
+								List<Day> days = group.getDays();
+								for (Day day : days) {
+									if (dayCnt != 0) {
+							%>
+							,&nbsp;
+							<%
+								}
+							%>
+							<%= day.getDay() %>&nbsp;<%= day.getStartTime() %>~<%= day.getEndTime() %>
+							<%
+									dayCnt++;
+								}
+							%>
+						</div>
+					</div>
+					<div class="tag-area" style="width: 307px;">
+						<%
+							List<Category> categories = group.getCategories();
+							if (categories != null && !categories.isEmpty()) {
+								for (Category category : categories) {
+						%>
+						<div class="tag">
+							<div class="tag-box" style="background-color:<%= getCategoryColor(category.getCategoryName()) %>">
+								<div class="tag-text"><%= category.getCategoryName() %></div>
+							</div>
+						</div>
+						<%
+							}
+						} else {
+						%>
+						<div class="tag">
+							<div class="tag-box" style="background-color: grey;">
+								<div class="tag-text">카테고리 없음</div>
+							</div>
+						</div>
+						<%
+							}
+						%>
+					</div>
+				</div>	<!-- card -->
+			</a>
+			<%
+				groupCnt++;
+				if (groupCnt % 4 == 0) {
+			%>
+		</div>
+		<%
+				}
+			}
+		%>
+	</div>
+    
 </div>
 <%!
     private String getCategoryColor(String category) {
