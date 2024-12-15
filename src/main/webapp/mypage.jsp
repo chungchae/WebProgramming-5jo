@@ -79,12 +79,17 @@
         <div class="section-title">가입된 모임</div>
         <% if (groups != null && !groups.isEmpty()) { %>
         <% for (Group group : groups) { %>
-        <div class="card">
+        <div class="card" style="width: 307px; height: 340px;">
             <a href="<%= request.getContextPath() %>/groupDetail?id=<%=group.getId() %>">
+            	<div class="image-area">
+					<img src="../media/<%= group.getImageUrl() != null ? "group" + group.getId() + ".png" : "/placeholder.png" %>" alt="" class="card-image">
+				</div>
+				<div class="info-area" style="width: 307px; text-align: center;">
                 <div class="meeting-name"><%= group.getTitle() %></div>
                 <div class="member-status">
                     <img class="icon-people" alt="" src="../media/icon-people.png">
                     <div class="member-status-text"><%= group.getMaxMembers() %>/<%= group.getCurrentMembers() %></div>
+                </div>
                 </div>
             </a>
             <div class="button-area">
