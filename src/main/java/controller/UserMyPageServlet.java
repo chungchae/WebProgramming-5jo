@@ -67,8 +67,10 @@ public class UserMyPageServlet extends HttpServlet {
             request.setAttribute("user", user);
 
             // 가입된 모임 정보 조회
-            String groupQuery = "SELECT g.id, g.title, g.image_url, g.current_members,g.max_members FROM GroupUser gu " +
-                    "JOIN group_table g ON gu.group_table_id = g.id WHERE gu.user_id = ?";
+            String groupQuery = "SELECT g.id, g.title, g.image_url, g.current_members, g.max_members " +
+                    "FROM GroupUser gu " +
+                    "JOIN group_table g ON gu.group_table_id = g.id " +
+                    "WHERE gu.user_id = ? AND gu.statement != '가입대기'";
             List<Group> groups = new ArrayList<>();
             try (PreparedStatement groupStmt = conn.prepareStatement(groupQuery)) {
                 groupStmt.setLong(1, userId);
