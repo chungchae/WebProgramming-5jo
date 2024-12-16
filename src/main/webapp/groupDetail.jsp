@@ -221,7 +221,7 @@ Group group = (Group) request.getAttribute("group");
 			</div>
 			</div>
 			<%
-			} else {
+			} else if ("회원".equals(statement) == false && "가입대기".equals(statement) == false) {
 			%>
 			<div class="box-button">
 				<form action="<%= request.getContextPath() %>/groupJoin" method="post">
