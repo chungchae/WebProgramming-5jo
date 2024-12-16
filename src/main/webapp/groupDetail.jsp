@@ -221,12 +221,28 @@ Group group = (Group) request.getAttribute("group");
 			</div>
 			</div>
 			<%
-			} else if ("회원".equals(statement) == false && "가입대기".equals(statement) == false) {
+			} else if ("가입대기".equals(statement) == true) {
+			%>
+			<div class="box-button">
+				<input type="hidden" name="groupId" value="<%= group.getId() %>">
+				<input type="submit" value="가입 신청 중" class="submitbox">
+				</form>
+			</div>
+			<%
+				} else if ("회원".equals(statement) == true) {
+			%>
+			<div class="box-button">
+					<input type="hidden" name="groupId" value="<%= group.getId() %>">
+					<input type="submit" value="모임 참여 중" class="submitbox">
+				</form>
+			</div>
+			<%
+				} else {
 			%>
 			<div class="box-button">
 				<form action="<%= request.getContextPath() %>/groupJoin" method="post">
-				<input type="hidden" name="groupId" value="<%= group.getId() %>">
-				<input type="submit" value="모임 가입하기" class="submitbox">
+					<input type="hidden" name="groupId" value="<%= group.getId() %>">
+					<input type="submit" value="모임 가입하기" class="submitbox">
 				</form>
 			</div>
 			<%
